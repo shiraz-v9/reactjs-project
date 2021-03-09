@@ -1,0 +1,5 @@
+#aside {
+  background-color: aqua;
+  max-width: 200px;
+  /* min-height: window.innerHeight; */
+}

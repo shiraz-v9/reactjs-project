@@ -14,19 +14,16 @@ var db = mysql.createConnection({
   password: "drentaLd8",
   database: "tauseefk",
 });
-db.connect();
 
 app.get("/home", (req, res) => {
-  db.query(
-    "SELECT * FROM tauseefk.coffida_user WHERE user_givenname LIKE 'a%'",
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send(result);
-      }
+  // db.connect();
+  db.query("SELECT * FROM tauseefk.HTMLWebContent;", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
     }
-  );
+  });
 });
 
 app.listen(5000, () => {
