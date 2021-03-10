@@ -19,19 +19,13 @@ function App() {
   return (
     <div className="App">
       <Navbar></Navbar>
-      <div
-        id="sideBar"
-        // style={{ height: { height }, backgroundColor: "#e5e5e5" }}
-      >
-        <p>
-          width: {width} ~ height: {height}
-        </p>
-
+      <div id="sideBar">
         <GetData id="list" />
       </div>
-
       <div id="section">
-        Editorial
+        <p>
+          Editorial width: {width} ~ height: {height}
+        </p>
         <AutoCSS />
       </div>
     </div>
