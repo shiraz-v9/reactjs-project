@@ -1,30 +1,29 @@
-import { useState, useEffect } from "react";
-import Axios from "axios";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const GetData = () => {
-  const [Data, setData] = useState("hello");
-  Axios.get("http://localhost:5000/home").then((response) => {
-    // setData(response);
-    console.log(Data);
+function GetData() {
+  const [posts, setPost] = useState([]);
 
-    return console.log(response.data);
-  });
-};
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/home`)
+      .then((res) => {
+        console.log(res);
+        setPost(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
+  return (
+    <div>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>{post.tagName}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 export default GetData;
-// export default function Example() {
-//   const [count, setCount] = useState(0);
-
-//   // Similar to componentDidMount and componentDidUpdate:
-//   useEffect(() => {
-//     // Update the document title using the browser API
-//     document.title = `You clicked ${count} times`;
-//   });
-
-//   return (
-//     <div>
-//       <p>You clicked {count} times</p>
-//       <button onClick={() => setCount(count + 1)}>Click me</button>
-//     </div>
-//   );
-// }

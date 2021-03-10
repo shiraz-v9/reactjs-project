@@ -1,34 +1,19 @@
 import "./App.css";
 import useWindowDimensions from "./components/windowDimensions";
 import Navbar from "./components/navbar";
-// import getData from "./components/getData";
-import { useState, useEffect, Component } from "react";
-import Axios from "axios";
-
-function MyComponent() {
-  const colors = {
-    Sea: "#a2ccb6",
-    Sand: "#fceeb5",
-    Peach: "#ee786e",
-  };
-  const [color, setColor] = useState(colors.Sand);
-  useEffect(() => {
-    document.getElementById("sideBar").style.background = color;
-    document.getElementById("sideBar").style.height = "658px";
-  });
-
-  return null;
-}
+import GetData from "./components/getData";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [Data, setData] = useState("");
-  const { height, width } = useWindowDimensions();
-  const GetData = () => {
-    Axios.get("http://localhost:5000/home").then((response) => {
-      console.log(response);
+  const { height, width } = useWindowDimensions("");
 
-      setData(JSON.stringify(response));
+  const AutoCSS = () => {
+    useEffect(() => {
+      // document.getElementById("sideBar").style.backgroundColor = { color };
+      document.getElementById("sideBar").style.height = { height };
     });
+
+    return null;
   };
 
   return (
@@ -40,13 +25,14 @@ function App() {
       >
         <p>
           width: {width} ~ height: {height}
-          {Data}
         </p>
-        <button onClick={GetData}>Show data</button>
+
+        <GetData id="list" />
       </div>
+
       <div id="section">
         Editorial
-        <MyComponent />
+        <AutoCSS />
       </div>
     </div>
   );
