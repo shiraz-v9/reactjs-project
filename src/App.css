@@ -1,27 +1,42 @@
-#App {
+/* #App {
   display: flex;
-  /* flex-wrap: wrap; */
+} */
+:root {
+  --orange: orange;
+  --white: #ffffff;
+  --position: 170px;
 }
 li {
   list-style-type: none;
-  font-weight: bold;
-  padding: 5px;
+  /* font-weight: bold; */
+  font-style: italic;
+  color: var(--white);
+}
+button {
+  border-radius: 25px;
+  /* flex: "none"; */
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-color: var(--orange);
 }
 #sideBar {
-  background-color: #f0efeb;
-  flex-direction: row;
-  flex-wrap: wrap;
-  max-width: 180px;
+  background-color: #5d606e;
+  /* flex-direction: row; */
+  /* flex-wrap: wrap-reverse; */
+  max-width: var(--position);
 
   /* min-height: window.innerHeight; */
+}
+body {
+  /* background-color: #003049; */
 }
 
 #section {
   position: absolute;
-  top: 70px;
-  left: 170px;
+  top: 56px;
+  left: var(--position);
   width: 200px;
   height: 100px;
-  border: 3px solid yellow;
-  background-color: lightcoral;
+  color: var(--white);
+  background-color: var(--orange);
 }
