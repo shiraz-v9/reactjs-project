@@ -1,5 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import $ from "jquery";
+
+function ListItem(props) {
+  // Correct! There is no need to specify the key here:
+  return (
+    <li>
+      {props.value}
+      <button>{props.id}</button>
+    </li>
+  );
+}
+
+$("button").click(function () {
+  var title = $("button").text();
+  alert(title);
+});
 
 function GetData() {
   const [posts, setPost] = useState([]);
@@ -18,53 +34,14 @@ function GetData() {
 
   return (
     <div>
-      <ul>
-        {posts.map((post) => (
-          <button data-toggle="modal" data-target="#exampleModal">
-            <li key={post.id}>{post.tagName}</li>
-          </button>
-        ))}
-      </ul>
-      {/* <!-- Modal --> */}
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Modal title
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">...</div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Save changes
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h3>AZ Tags</h3>
+
+      {posts.map((x) => (
+        // <li ix="tags" key={d.id.toString()} href={d.id}>
+        //   {d.tagName}
+        // </li>
+        <ListItem key={x.id.toString()} value={x.tagName} id={x.id} />
+      ))}
     </div>
   );
 }

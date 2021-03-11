@@ -1,7 +1,7 @@
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand" href="http://localhost:3000">
         HTML TUTOR{" "}
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@ const Navbar = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item active">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="http://localhost:3000">
               Home <span className="sr-only">(current)</span>
             </a>
           </li>

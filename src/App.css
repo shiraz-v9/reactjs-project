@@ -1,23 +1,33 @@
-/* #App {
+#App {
   display: flex;
-} */
+}
 :root {
-  --orange: orange;
-  --white: #ffffff;
+  --accentColor: rgb(226, 219, 205);
+  --fontColor: #000000;
   --position: 170px;
 }
 li {
   list-style-type: none;
-  /* font-weight: bold; */
+  padding: 10px;
+  text-align: center;
   font-style: italic;
-  color: var(--white);
+  color: var(--fontColor);
 }
+/* a {
+  color: var(--fontColor); */
+/* padding: 10px; */
+/* flex-wrap: wrap; */
+/* flex-direction: column; */
+/* } */
+/* a:hover {
+  color: var(--fontColor);
+} */
 button {
   border-radius: 25px;
   /* flex: "none"; */
   flex-wrap: wrap;
   flex-direction: column;
-  background-color: var(--orange);
+  background-color: var(--accentColor);
 }
 #sideBar {
   background-color: #5d606e;
@@ -27,16 +37,22 @@ button {
 
   /* min-height: window.innerHeight; */
 }
-body {
-  /* background-color: #003049; */
+#content {
+  background-color: var(--accentColor);
 }
 
 #section {
   position: absolute;
   top: 56px;
   left: var(--position);
-  width: 200px;
-  height: 100px;
-  color: var(--white);
-  background-color: var(--orange);
+  /* width: 200px; */
+  /* height: 100px; */
+  color: var(--fontColor);
+  /* background-color: var(--accentColor); */
+}
+#tags {
+  /* margin: 20; */
+  padding: 10px;
+  text-align: center;
+  /* font-weight: 100; */
 }

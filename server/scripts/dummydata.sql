@@ -1,6 +1,6 @@
 use tauseefk;
 
-INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<!--...-->", "NULL", "NULL");
+INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<!--...-->", "This is how you comment in HTML. Comments are useful in development when testing where you can disable line of codes or information when yopu work in teams." , "<!-- this is a comment -->");
 INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<!DOCTYPE>", "NULL", "NULL");
 INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<a>", "NULL", "NULL");
 INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<abbr>", "NULL", "NULL");

@@ -2,19 +2,19 @@ import "./App.css";
 import useWindowDimensions from "./components/windowDimensions";
 import Navbar from "./components/navbar";
 import GetData from "./components/getData";
-import { useState, useEffect } from "react";
+import GetRequest from "./components/getRequest";
 
 function App() {
   const { height, width } = useWindowDimensions("");
 
-  const AutoCSS = () => {
-    useEffect(() => {
-      // document.getElementById("sideBar").style.backgroundColor = { color };
-      document.getElementById("sideBar").style.height = { height };
-    });
+  // const AutoCSS = () => {
+  //   useEffect(() => {
+  //     document.getElementById("content").style.height = { height };
+  //     document.getElementById("sideBar").style.height = { height };
+  //   });
 
-    return null;
-  };
+  //   return null;
+  // };
 
   return (
     <div className="App">
@@ -22,11 +22,14 @@ function App() {
       <div id="sideBar">
         <GetData id="list" />
       </div>
+
       <div id="section">
-        <p>
+        <div id="content">
           Editorial width: {width} ~ height: {height}
-        </p>
-        <AutoCSS />
+          <GetRequest></GetRequest>
+        </div>
+
+        {/* <AutoCSS /> */}
       </div>
     </div>
   );
