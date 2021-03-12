@@ -13,15 +13,15 @@ li {
   font-style: italic;
   color: var(--fontColor);
 }
-/* a {
-  color: var(--fontColor); */
-/* padding: 10px; */
-/* flex-wrap: wrap; */
-/* flex-direction: column; */
-/* } */
-/* a:hover {
+a {
   color: var(--fontColor);
-} */
+  padding: 20px;
+  /* flex-wrap: wrap;
+  flex-direction: column; */
+}
+a:hover {
+  color: blue;
+}
 button {
   border-radius: 25px;
   /* flex: "none"; */

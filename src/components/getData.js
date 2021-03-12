@@ -5,21 +5,15 @@ import $ from "jquery";
 function ListItem(props) {
   // Correct! There is no need to specify the key here:
   return (
-    <li>
-      {props.value}
-      <button>{props.id}</button>
-    </li>
+    // <li>
+    <a>{props.value}</a>
+    /* <button id="tagBtn">{props.id}</button> */
+    // </li>
   );
 }
 
-$("button").click(function () {
-  var title = $("button").text();
-  alert(title);
-});
-
 function GetData() {
   const [posts, setPost] = useState([]);
-
   useEffect(() => {
     axios
       .get(`http://localhost:5000/home`)
@@ -34,7 +28,7 @@ function GetData() {
 
   return (
     <div>
-      <h3>AZ Tags</h3>
+      <p>AZ Tags</p>
 
       {posts.map((x) => (
         // <li ix="tags" key={d.id.toString()} href={d.id}>
