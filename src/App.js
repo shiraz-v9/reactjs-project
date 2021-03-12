@@ -6,12 +6,6 @@ import GetRequest from "./components/getRequest";
 import $ from "jquery";
 import React, { useState, useEffect } from "react";
 
-$(document).on("click", "a", function (event) {
-  var target = $(event.target).closest("a");
-  target.css("color", "grey");
-  alert(target.text());
-});
-
 function App() {
   const { height, width } = useWindowDimensions("");
 
@@ -32,7 +26,7 @@ function App() {
       </div>
 
       <div id="section">
-        <div id="content">
+        <div>
           Editorial width: {width} ~ height: {height}
           <GetRequest></GetRequest>
         </div>

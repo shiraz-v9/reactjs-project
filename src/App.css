@@ -15,7 +15,8 @@ li {
 }
 a {
   color: var(--fontColor);
-  padding: 20px;
+  text-align: justify;
+  /* padding: 20px; */
   /* flex-wrap: wrap;
   flex-direction: column; */
 }
@@ -37,22 +38,26 @@ button {
 
   /* min-height: window.innerHeight; */
 }
-#content {
-  background-color: var(--accentColor);
-}
 
 #section {
   position: absolute;
+
   top: 56px;
   left: var(--position);
   /* width: 200px; */
   /* height: 100px; */
-  color: var(--fontColor);
+
   /* background-color: var(--accentColor); */
 }
-#tags {
-  /* margin: 20; */
-  padding: 10px;
+
+.list {
   text-align: center;
-  /* font-weight: 100; */
+  padding: 5px;
+  cursor: pointer;
+  color: whitesmoke;
+}
+
+#dataContainer {
+  padding-left: 20px;
+  width: 80%;
 }

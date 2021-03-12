@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import $ from "jquery";
 
 function ListItem(props) {
-  // Correct! There is no need to specify the key here:
   return (
-    // <li>
-    <a>{props.value}</a>
-    /* <button id="tagBtn">{props.id}</button> */
-    // </li>
+    <div>
+      <br></br>
+
+      <a>{props.value}</a>
+    </div>
   );
 }
 
@@ -27,8 +26,8 @@ function GetData() {
   }, []);
 
   return (
-    <div>
-      <p>AZ Tags</p>
+    <div className="list">
+      <h2>AZ Tags</h2>
 
       {posts.map((x) => (
         // <li ix="tags" key={d.id.toString()} href={d.id}>

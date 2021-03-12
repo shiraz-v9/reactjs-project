@@ -35,11 +35,11 @@ app.get("/home", (req, res) => {
   });
 });
 
-app.get("/home/:id", function (req, res) {
-  const id = req.params.id;
-  console.log(id); // should display 123
+app.get("/home/:tag", function (req, res) {
+  const tag = req.params.tag;
+  console.log(tag); // should display 123
   cloudSQL.query(
-    "SELECT * FROM tauseefk.HTMLWebContent WHERE id=" + id + "",
+    "SELECT * FROM tauseefk.HTMLWebContent WHERE tagName='" + tag + "';",
     (err, result) => {
       if (err) {
         console.log(err);
