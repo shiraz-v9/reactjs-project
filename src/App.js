@@ -3,7 +3,7 @@ import useWindowDimensions from "./components/windowDimensions";
 import Navbar from "./components/navbar";
 import GetData from "./components/getData";
 import GetRequest from "./components/getRequest";
-import $ from "jquery";
+import SignUp from "./components/signUp";
 import React, { useState, useEffect } from "react";
 
 function App() {
@@ -28,6 +28,7 @@ function App() {
       <div id="section">
         <div>
           Editorial width: {width} ~ height: {height}
+          <SignUp></SignUp>
           <GetRequest></GetRequest>
         </div>
 

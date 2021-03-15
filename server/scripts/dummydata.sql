@@ -1,15 +1,15 @@
 use tauseefk;
 
 INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<!--...-->", "This is how you comment in HTML. Comments are useful in development when testing where you can disable line of codes or information when yopu work in teams." , "<!-- this is a comment -->");
-INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<!DOCTYPE>", "NULL", "NULL");
-INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<a>", "NULL", "NULL");
-INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<abbr>", "NULL", "NULL");
-INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<acronym>", "NULL", "NULL");
-INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<address>", "NULL", "NULL");
-INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<applet>", "NULL", "NULL");
+INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<!DOCTYPE>", "this is the declaraction that goes at the beginning of the page, it is a MUST and without this you can not work.", "<!DOCTYPE html>");
+INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<a>", "This is the anchor tag. You can create hyperlinks alongside the href tag", "<a href='http://localhost:3000'>");
+INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<abbr>", "Abbreviation tag, it is useful for creating acronyms for long names, and hovering over with the mouse reveals the full name.", "The <abbr title='Ultimate Fighting Championship'>UFC</abbr> was founded in 1948.");
+INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<acronym>", "see <abbr>.", "not supported");
+INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<address>", "The address tag defines the address of a person, the email it is rendered in italics and breaks are added at the begginning and end of the address tag.", "<p>Contact:</p><address><a href='mailto:strawberry@fruit.com'>strawberry@fruit.com</a><br><a href='phone:+23789231232'>23789231232</a></address>");
+INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<applet>", "This was made for plugins like Flash, modern browsers have stopped this.", "not supported");
 
-INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<area>", "NULL", "NULL");
-INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<article>", "NULL", "NULL");
+INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<area>", "This tag can make an area that is clickable for example images. This tag support different shapes with the Shape attribute you can make it rectangle, circle or poligonal regions.", "<area shape='default | rect | circle | poly'>");
+INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<article>", "Article is part of HTML semantics ", "NULL");
 INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<aside>", "NULL", "NULL");
 INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<audio>", "NULL", "NULL");
 INSERT INTO HTMLWebContent ( tagName, tagDescription, tagExample) VALUES ("<b>", "NULL", "NULL");
