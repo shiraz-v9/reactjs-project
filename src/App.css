@@ -1,8 +1,5 @@
-#App {
-  display: flex;
-}
 :root {
-  --accentColor: rgb(226, 219, 205);
+  --accentColor: rgb(0, 89, 255);
   --fontColor: #000000;
   --position: 170px;
 }
@@ -24,10 +21,13 @@ a:hover {
   color: blue;
 }
 button {
-  border-radius: 25px;
-  /* flex: "none"; */
-  flex-wrap: wrap;
-  flex-direction: column;
+  border: 3px solid rgb(0, 4, 230);
+  /* padding: 10px; */
+  border-radius: 10px;
+  padding: 5px;
+  color: whitesmoke;
+  /* flex-wrap: wrap;
+  flex-direction: column; */
   background-color: var(--accentColor);
 }
 #sideBar {

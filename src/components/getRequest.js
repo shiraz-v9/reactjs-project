@@ -35,7 +35,7 @@ function GetRequest() {
       .then((res) => {
         // console.log(res);
         setItems(res.data);
-        console.log("recieved: ", res.data);
+        console.log("Tag received: ", res.data);
       })
       .catch((err) => {
         console.log(err);

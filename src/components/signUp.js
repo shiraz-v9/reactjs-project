@@ -1,5 +1,68 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Tab, Tabs } from "react-bootstrap";
+import $ from "jquery";
+import axios from "axios";
+
+const CreateAccount = () => {
+  const [userdata, setUserdata] = useState({
+    user: null,
+    lastName: null,
+    email: null,
+  });
+  const handleUserData = (e) =>
+    setUserdata({
+      ...userdata,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
+  return (
+    <div>
+      <form>
+        <input
+          onBlur={handleUserData}
+          placeholder="Name"
+          type="text"
+          name="user"
+        />
+        <br></br>
+        <input
+          onBlur={handleUserData}
+          placeholder="Surname"
+          type="text"
+          name="lastName"
+        />
+        <br></br>
+        <input
+          onBlur={handleUserData}
+          placeholder="useremail"
+          type="text"
+          name="email"
+        />
+        <br></br>
+        <button onClick={PostUser(userdata)}>submit</button>
+      </form>
+    </div>
+  );
+};
+
+const PostUser = async function (userdata) {
+  useEffect(() => {
+    if (
+      userdata.user !== null &&
+      userdata.lastName !== null &&
+      userdata.email !== null
+    ) {
+      console.log(userdata);
+      axios
+        .post("http://localhost:5000/login", userdata)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }, [userdata]);
+};
 
 function SignUp() {
   const [signed, setSigned] = useState("");
@@ -17,38 +80,40 @@ function SignUp() {
       setSigned("Welcome back user!");
       setModal("log out");
     }
-  }, [logged]);
+  }, []);
 
-  const createAccount = () => {
+  const signIn = () => {
     return (
       <div>
         <form>
           <input placeholder="Name" type="text" name="name" />
           <br></br>
-          <input placeholder="Surname" type="text" name="Surname" />
+          <input placeholder="email" type="text" name="email" />
           <br></br>
-          <input placeholder="Email" type="text" name="Email" />
+          <button type="submit" name="signin">
+            sign in
+          </button>
         </form>
       </div>
     );
   };
-  const signIn = () => {
-    return <h1>omg HIIII</h1>;
-  };
   const logOut = () => {
-    return <h1>omg HIIII</h1>;
+    return (
+      <div class="d-flex justify-content-between">
+        <button>log out</button>
+      </div>
+    );
   };
 
   return (
     <div>
       <h5>{signed}</h5>
-      <Button variant="primary" onClick={showModal}>
-        {modal}
-      </Button>
+      <button onClick={showModal}>{modal}</button>
       <Modal show={show} onHide={closeModal}>
-        <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
+        {/* <div class="d-flex justify-content-around"> */}
+        <Tabs defaultActiveKey="home">
           <Tab eventKey="home" title="sign up">
-            {createAccount()}
+            {CreateAccount()}
           </Tab>
           <Tab eventKey="profile" title="sign in">
             {signIn()}

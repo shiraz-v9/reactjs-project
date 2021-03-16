@@ -17,7 +17,7 @@ function GetData() {
     axios
       .get(`http://localhost:5000/home`)
       .then((res) => {
-        console.log(res);
+        console.log("Data loaded: ", res);
         setPost(res.data);
       })
       .catch((err) => {

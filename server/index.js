@@ -2,10 +2,15 @@ const express = require("express");
 const app = express();
 var router = express.Router();
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 app.use(cors());
 app.use(express.json());
-
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 var mysql = require("mysql");
 
 var db = mysql.createConnection({
@@ -48,6 +53,36 @@ app.get("/home/:tag", function (req, res) {
       }
     }
   );
+});
+
+app.post("/login", function (req, res) {
+  var user = req.body.user;
+  var lastName = req.body.lastName;
+  var email = req.body.email;
+  console.log(
+    "User name => " + user + ", lastName is=> " + lastName,
+    +", email=> " + email
+  );
+  cloudSQL.query(
+    "INSERT INTO tauseefk.HTMLWebUsers (userName, lastName, userEmail) VALUES ('" +
+      user +
+      "', '" +
+      lastName +
+      "', '" +
+      email +
+      "');",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("created");
+      }
+    }
+  );
+
+  // res.end("created");
+
+  //
 });
 
 app.listen(5000, () => {
