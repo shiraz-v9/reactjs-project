@@ -42,7 +42,7 @@ app.get("/home", (req, res) => {
 
 app.get("/home/:tag", function (req, res) {
   const tag = req.params.tag;
-  console.log(tag); // should display 123
+  // console.log(tag); // should display 123
   cloudSQL.query(
     "SELECT * FROM tauseefk.HTMLWebContent WHERE tagName='" + tag + "';",
     (err, result) => {
@@ -57,17 +57,14 @@ app.get("/home/:tag", function (req, res) {
 
 app.post("/login", function (req, res) {
   var user = req.body.user;
-  var lastName = req.body.lastName;
+  var userPassword = req.body.userPassword;
   var email = req.body.email;
-  console.log(
-    "User name => " + user + ", lastName is=> " + lastName,
-    +", email=> " + email
-  );
+  console.log(JSON.stringify(req.body));
   cloudSQL.query(
-    "INSERT INTO tauseefk.HTMLWebUsers (userName, lastName, userEmail) VALUES ('" +
+    "INSERT INTO tauseefk.HTMLWebUsers (userName, userPwd, userEmail) VALUES ('" +
       user +
       "', '" +
-      lastName +
+      userPassword +
       "', '" +
       email +
       "');",
@@ -79,10 +76,6 @@ app.post("/login", function (req, res) {
       }
     }
   );
-
-  // res.end("created");
-
-  //
 });
 
 app.listen(5000, () => {

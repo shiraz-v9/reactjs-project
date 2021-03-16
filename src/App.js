@@ -4,7 +4,6 @@ import Navbar from "./components/navbar";
 import GetData from "./components/getData";
 import GetRequest from "./components/getRequest";
 import SignUp from "./components/signUp";
-import React, { useState, useEffect } from "react";
 
 function App() {
   const { height, width } = useWindowDimensions("");

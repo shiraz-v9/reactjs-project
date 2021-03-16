@@ -6,7 +6,7 @@ import axios from "axios";
 const CreateAccount = () => {
   const [userdata, setUserdata] = useState({
     user: null,
-    lastName: null,
+    userPassword: null,
     email: null,
   });
   const handleUserData = (e) =>
@@ -16,30 +16,31 @@ const CreateAccount = () => {
     });
   return (
     <div>
-      <form>
-        <input
-          onBlur={handleUserData}
-          placeholder="Name"
-          type="text"
-          name="user"
-        />
-        <br></br>
-        <input
-          onBlur={handleUserData}
-          placeholder="Surname"
-          type="text"
-          name="lastName"
-        />
-        <br></br>
-        <input
-          onBlur={handleUserData}
-          placeholder="useremail"
-          type="text"
-          name="email"
-        />
-        <br></br>
-        <button onClick={PostUser(userdata)}>submit</button>
-      </form>
+      <input
+        onBlur={handleUserData}
+        placeholder="Name"
+        class="form-control"
+        type="text"
+        name="user"
+      />
+      <br></br>
+      <input
+        type="password"
+        onBlur={handleUserData}
+        placeholder="Password"
+        class="form-control"
+        name="userPassword"
+      />
+      <br></br>
+      <input
+        onBlur={handleUserData}
+        placeholder="Email"
+        class="form-control"
+        type="text"
+        name="email"
+      />
+      <br></br>
+      <button onClick={PostUser(userdata)}>submit</button>
     </div>
   );
 };
@@ -47,11 +48,14 @@ const CreateAccount = () => {
 const PostUser = async function (userdata) {
   useEffect(() => {
     if (
-      userdata.user !== null &&
-      userdata.lastName !== null &&
-      userdata.email !== null
+      userdata.user != null &&
+      userdata.user != "" &&
+      userdata.userPassword != null &&
+      userdata.userPassword != "" &&
+      userdata.email != null &&
+      userdata.email != ""
     ) {
-      console.log(userdata);
+      // console.log(userdata);
       axios
         .post("http://localhost:5000/login", userdata)
         .then(function (response) {
@@ -60,6 +64,8 @@ const PostUser = async function (userdata) {
         .catch(function (error) {
           console.log(error);
         });
+    } else {
+      console.log("empty");
     }
   }, [userdata]);
 };
@@ -85,15 +91,13 @@ function SignUp() {
   const signIn = () => {
     return (
       <div>
-        <form>
-          <input placeholder="Name" type="text" name="name" />
-          <br></br>
-          <input placeholder="email" type="text" name="email" />
-          <br></br>
-          <button type="submit" name="signin">
-            sign in
-          </button>
-        </form>
+        <input placeholder="Name" type="text" name="name" />
+        <br></br>
+        <input placeholder="email" type="text" name="email" />
+        <br></br>
+        <button type="submit" name="signin">
+          sign in
+        </button>
       </div>
     );
   };
@@ -110,7 +114,6 @@ function SignUp() {
       <h5>{signed}</h5>
       <button onClick={showModal}>{modal}</button>
       <Modal show={show} onHide={closeModal}>
-        {/* <div class="d-flex justify-content-around"> */}
         <Tabs defaultActiveKey="home">
           <Tab eventKey="home" title="sign up">
             {CreateAccount()}
