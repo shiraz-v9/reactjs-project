@@ -23,14 +23,6 @@ var db = mysql.createConnection({
   database: "tauseefk",
 });
 
-// var cloudSQL = mysql.createConnection({
-//   host: "34.105.204.216",
-//   port: "3306",
-//   user: "root",
-//   password: "drentaLd8",
-//   database: "tauseefk",
-// });
-
 app.get("/home", (req, res) => {
   // db.connect();
   db.query("SELECT * FROM tauseefk.HTMLWebContent;", (err, result) => {
@@ -95,6 +87,9 @@ app.post("/enter", urlencodedParser, (req, res) => {
     (err, rows, fields) => {
       if (err) {
         console.log(err);
+      } else if (rows == "") {
+        console.log("NO MATCH");
+        // res.send("wrong credentials");
       } else {
         console.log(rows);
         res.send(rows);

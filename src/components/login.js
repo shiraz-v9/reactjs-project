@@ -43,7 +43,7 @@ const CreateAccount = () => {
   };
 
   return (
-    <div>
+    <div className="modalContent">
       <p>{status}</p>
       <input
         onBlur={handleUserData}
@@ -69,16 +69,17 @@ const CreateAccount = () => {
         name="email"
       />
       <br></br>
-      <button onClick={PostUser(userdata)}>submit</button>
+      <button onClick={PostUser(userdata)}>Create account</button>
     </div>
   );
 };
 
-function SignUp() {
+function Login() {
   const [signed, setSigned] = useState("");
   const [logged, setLogged] = useState(false);
   const [show, setShow] = useState(false);
   const [modal, setModal] = useState();
+  const [key, setKey] = useState("sign in");
   const closeModal = () => setShow(false);
   const showModal = () => setShow(true);
   useEffect(
@@ -91,6 +92,7 @@ function SignUp() {
         setSigned("Welcome back user!");
         setModal("");
         $("#MButton").hide();
+        closeModal();
       }
     },
     [logged]
@@ -136,7 +138,7 @@ function SignUp() {
         [e.currentTarget.name]: e.currentTarget.value,
       });
     return (
-      <div>
+      <div className="modalContent">
         <form>
           <input
             onBlur={handleSigninData}
@@ -154,44 +156,46 @@ function SignUp() {
             name="Password"
           />
           <br></br>
-          {/* <input type="submit" value="Submit" /> */}
         </form>
-        <button onClick={LogMeIn(credentials)}>sign in</button>
+        <button onClick={LogMeIn(credentials)}>Sign in</button>
       </div>
     );
   };
 
   const logOut = () => {
     if (logged == true) {
-      return <button onClick={() => setLogged(false)}>DELETE</button>;
+      return <button onClick={() => setLogged(false)}>Log Out</button>;
     }
   };
 
   return (
     <div>
-      <h5>{signed}</h5>
-      <button id="MButton" onClick={showModal}>
-        {modal}
-      </button>
-      {logOut()}
+      <span
+        style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+      >
+        <h5>{signed}</h5>
+        <button id="MButton" onClick={showModal}>
+          {modal}
+        </button>
+        {logOut()}
+      </span>
       <Modal show={show} onHide={closeModal}>
-        <Tabs defaultActiveKey="home">
-          <Tab eventKey="home" title="sign up">
+        <Tabs
+          id="controlled-tab-example"
+          // defaultActiveKey={modal}
+          activeKey={key}
+          onSelect={(k) => setKey(k)}
+        >
+          <Tab eventKey="sign up" title="sign up">
             {CreateAccount()}
           </Tab>
-          <Tab eventKey="profile" title="sign in">
+          <Tab eventKey="sign in" title="sign in">
             {SignIn()}
           </Tab>
-          {/* <Tab eventKey="contact" title="log out">
-            {logOut()}
-          </Tab> */}
         </Tabs>
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeModal}>
-            close
-          </Button>
-          <Button variant="primary" onClick={closeModal}>
-            send
+          <Button variant="light" onClick={closeModal}>
+            ❌
           </Button>
         </Modal.Footer>
       </Modal>
@@ -199,4 +203,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default Login;

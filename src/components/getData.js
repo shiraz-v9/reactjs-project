@@ -19,15 +19,24 @@ function GetData() {
       .then((res) => {
         console.log("Data loaded: ", res);
         setPost(res.data);
+        fixHeight();
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
+  const fixHeight = () => {
+    var h = window.innerHeight - 45 + "px";
+    // document.getElementById("sideBar").style.backgroundColor = "orange";
+    document.getElementById("sideBar").style.maxHeight = h;
+    document.getElementById("sideBar").style.overflow = "scroll";
+    console.log("here it is ", h);
+  };
+
   return (
     <div className="list">
-      <h2>AZ Tags</h2>
+      <h2 className="sticky">AZ Tags</h2>
 
       {posts.map((x) => (
         // <li ix="tags" key={d.id.toString()} href={d.id}>

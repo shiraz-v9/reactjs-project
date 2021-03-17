@@ -13,41 +13,29 @@ li {
 a {
   color: var(--fontColor);
   text-align: justify;
-  /* padding: 20px; */
-  /* flex-wrap: wrap;
-  flex-direction: column; */
 }
 a:hover {
   color: blue;
 }
 button {
   border: 3px solid rgb(0, 4, 230);
-  /* padding: 10px; */
   border-radius: 10px;
   padding: 5px;
   color: whitesmoke;
-  /* flex-wrap: wrap;
-  flex-direction: column; */
   background-color: var(--accentColor);
+}
+button:hover {
+  background-color: rgb(0, 62, 179);
 }
 #sideBar {
   background-color: #5d606e;
-  /* flex-direction: row; */
-  /* flex-wrap: wrap-reverse; */
   max-width: var(--position);
-
-  /* min-height: window.innerHeight; */
 }
 
 #section {
   position: absolute;
-
   top: 80px;
   left: var(--position);
-  /* width: 200px; */
-  /* height: 100px; */
-
-  /* background-color: var(--accentColor); */
 }
 
 .list {
@@ -55,9 +43,20 @@ button {
   padding: 5px;
   cursor: pointer;
   color: whitesmoke;
+  font-family: Verdana, Monospace;
 }
 
 #dataContainer {
   padding-left: 20px;
   width: 80%;
+}
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #5d606e;
+}
+
+.modalContent {
+  padding: 30px;
 }
