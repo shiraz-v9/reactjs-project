@@ -6,11 +6,13 @@ const bodyParser = require("body-parser");
 
 app.use(cors());
 app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
+// app.use(
+//   express.urlencoded({
+//     extended: true,
+//   })
+// );
+var jsonParser = bodyParser.json();
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var mysql = require("mysql");
 
 var db = mysql.createConnection({
@@ -21,17 +23,17 @@ var db = mysql.createConnection({
   database: "tauseefk",
 });
 
-var cloudSQL = mysql.createConnection({
-  host: "34.105.204.216",
-  port: "3306",
-  user: "root",
-  password: "drentaLd8",
-  database: "tauseefk",
-});
+// var cloudSQL = mysql.createConnection({
+//   host: "34.105.204.216",
+//   port: "3306",
+//   user: "root",
+//   password: "drentaLd8",
+//   database: "tauseefk",
+// });
 
 app.get("/home", (req, res) => {
   // db.connect();
-  cloudSQL.query("SELECT * FROM tauseefk.HTMLWebContent;", (err, result) => {
+  db.query("SELECT * FROM tauseefk.HTMLWebContent;", (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -43,7 +45,7 @@ app.get("/home", (req, res) => {
 app.get("/home/:tag", function (req, res) {
   const tag = req.params.tag;
   // console.log(tag); // should display 123
-  cloudSQL.query(
+  db.query(
     "SELECT * FROM tauseefk.HTMLWebContent WHERE tagName='" + tag + "';",
     (err, result) => {
       if (err) {
@@ -60,19 +62,42 @@ app.post("/login", function (req, res) {
   var userPassword = req.body.userPassword;
   var email = req.body.email;
   console.log(JSON.stringify(req.body));
-  cloudSQL.query(
+  db.query(
     "INSERT INTO tauseefk.HTMLWebUsers (userName, userPwd, userEmail) VALUES ('" +
       user +
       "', '" +
       userPassword +
       "', '" +
       email +
-      "');",
-    (err, result) => {
+      "')",
+    (err, rows, fields) => {
       if (err) {
         console.log(err);
       } else {
-        res.send("created");
+        res.send(rows);
+        console.log("row inserted", rows);
+      }
+    }
+  );
+});
+
+app.post("/enter", urlencodedParser, (req, res) => {
+  var email = req.body.Email;
+  var userPassword = req.body.Password;
+
+  console.log("logging user => ", JSON.stringify(req.body));
+  db.query(
+    "SELECT * FROM tauseefk.HTMLWebUsers WHERE userEmail = '" +
+      email +
+      "' AND userPwd='" +
+      userPassword +
+      "'",
+    (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(rows);
+        res.send(rows);
       }
     }
   );

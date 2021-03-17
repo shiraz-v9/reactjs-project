@@ -9,17 +9,46 @@ const CreateAccount = () => {
     userPassword: null,
     email: null,
   });
+  const [status, setStatus] = useState("");
   const handleUserData = (e) =>
     setUserdata({
       ...userdata,
       [e.currentTarget.name]: e.currentTarget.value,
     });
+
+  const PostUser = (userdata) => {
+    useEffect(() => {
+      if (
+        userdata.user != null &&
+        userdata.user != "" &&
+        userdata.userPassword != null &&
+        userdata.userPassword != "" &&
+        userdata.email != null &&
+        userdata.email != ""
+      ) {
+        console.log(userdata);
+        axios
+          .post("http://localhost:5000/login", userdata)
+          .then(function (response) {
+            console.log(response.data);
+            setStatus("Account Created");
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        console.log("empty");
+      }
+    }, [userdata]);
+  };
+
   return (
     <div>
+      <p>{status}</p>
       <input
         onBlur={handleUserData}
         placeholder="Name"
-        class="form-control"
+        className="form-control"
         type="text"
         name="user"
       />
@@ -28,14 +57,14 @@ const CreateAccount = () => {
         type="password"
         onBlur={handleUserData}
         placeholder="Password"
-        class="form-control"
+        className="form-control"
         name="userPassword"
       />
       <br></br>
       <input
         onBlur={handleUserData}
         placeholder="Email"
-        class="form-control"
+        className="form-control"
         type="text"
         name="email"
       />
@@ -45,31 +74,6 @@ const CreateAccount = () => {
   );
 };
 
-const PostUser = async function (userdata) {
-  useEffect(() => {
-    if (
-      userdata.user != null &&
-      userdata.user != "" &&
-      userdata.userPassword != null &&
-      userdata.userPassword != "" &&
-      userdata.email != null &&
-      userdata.email != ""
-    ) {
-      // console.log(userdata);
-      axios
-        .post("http://localhost:5000/login", userdata)
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } else {
-      console.log("empty");
-    }
-  }, [userdata]);
-};
-
 function SignUp() {
   const [signed, setSigned] = useState("");
   const [logged, setLogged] = useState(false);
@@ -77,53 +81,110 @@ function SignUp() {
   const [modal, setModal] = useState();
   const closeModal = () => setShow(false);
   const showModal = () => setShow(true);
+  useEffect(
+    function persistForm() {
+      if (logged == false) {
+        setSigned("Not signed in!");
+        setModal("sign in");
+        $("#MButton").show();
+      } else {
+        setSigned("Welcome back user!");
+        setModal("");
+        $("#MButton").hide();
+      }
+    },
+    [logged]
+  );
 
-  useEffect(() => {
-    if (logged == false) {
-      setSigned("Not signed in!");
-      setModal("sign in");
-    } else {
-      setSigned("Welcome back user!");
-      setModal("log out");
-    }
-  }, []);
+  const LogMeIn = (credentials) => {
+    useEffect(
+      function persistForm() {
+        // let nullVal = !Object.values(credentials).every((o) => o === null);
+        // let emptyVal = !Object.values(credentials).every((o) => o === "");
+        if (
+          credentials.Password != null &&
+          credentials.Password != "" &&
+          credentials.Email != null &&
+          credentials.Email != ""
+        ) {
+          console.log(credentials);
+          axios
+            .post("http://localhost:5000/enter", credentials)
+            .then(function (response) {
+              // console.log("matching user=> ", response.data);
+              setLogged(true);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
+          console.log("empty");
+        }
+      },
+      [credentials]
+    );
+  };
 
-  const signIn = () => {
+  const SignIn = () => {
+    const [credentials, setCredentials] = useState({
+      Email: null,
+      Password: null,
+    });
+    const handleSigninData = (e) =>
+      setCredentials({
+        ...credentials,
+        [e.currentTarget.name]: e.currentTarget.value,
+      });
     return (
       <div>
-        <input placeholder="Name" type="text" name="name" />
-        <br></br>
-        <input placeholder="email" type="text" name="email" />
-        <br></br>
-        <button type="submit" name="signin">
-          sign in
-        </button>
+        <form>
+          <input
+            onBlur={handleSigninData}
+            className="form-control"
+            placeholder="Email"
+            type="text"
+            name="Email"
+          />
+          <br></br>
+          <input
+            onBlur={handleSigninData}
+            className="form-control"
+            placeholder="Password"
+            type="password"
+            name="Password"
+          />
+          <br></br>
+          {/* <input type="submit" value="Submit" /> */}
+        </form>
+        <button onClick={LogMeIn(credentials)}>sign in</button>
       </div>
     );
   };
+
   const logOut = () => {
-    return (
-      <div class="d-flex justify-content-between">
-        <button>log out</button>
-      </div>
-    );
+    if (logged == true) {
+      return <button onClick={() => setLogged(false)}>DELETE</button>;
+    }
   };
 
   return (
     <div>
       <h5>{signed}</h5>
-      <button onClick={showModal}>{modal}</button>
+      <button id="MButton" onClick={showModal}>
+        {modal}
+      </button>
+      {logOut()}
       <Modal show={show} onHide={closeModal}>
         <Tabs defaultActiveKey="home">
           <Tab eventKey="home" title="sign up">
             {CreateAccount()}
           </Tab>
           <Tab eventKey="profile" title="sign in">
-            {signIn()}
+            {SignIn()}
           </Tab>
-          <Tab eventKey="contact" title="log out">
+          {/* <Tab eventKey="contact" title="log out">
             {logOut()}
-          </Tab>
+          </Tab> */}
         </Tabs>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModal}>
