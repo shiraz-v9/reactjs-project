@@ -27,7 +27,7 @@ function GetData() {
   }, []);
 
   const fixHeight = () => {
-    var h = window.innerHeight - 45 + "px";
+    var h = window.innerHeight - 56 + "px";
     // document.getElementById("sideBar").style.backgroundColor = "orange";
     document.getElementById("sideBar").style.maxHeight = h;
     document.getElementById("sideBar").style.overflow = "scroll";
@@ -36,12 +36,9 @@ function GetData() {
 
   return (
     <div className="list">
-      <h2 className="sticky">AZ Tags</h2>
+      <h4 className="sticky">AZ Tags</h4>
 
       {posts.map((x) => (
-        // <li ix="tags" key={d.id.toString()} href={d.id}>
-        //   {d.tagName}
-        // </li>
         <ListItem key={x.id.toString()} value={x.tagName} id={x.id} />
       ))}
     </div>

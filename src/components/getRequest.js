@@ -25,7 +25,6 @@ function GetRequest() {
     );
   }
 
-  // setUrl();
   const [items, setItems] = useState([]);
   const [url, setUrl] = useState("<!--...-->");
 
