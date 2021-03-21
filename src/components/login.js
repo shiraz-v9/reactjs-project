@@ -31,7 +31,7 @@ const CreateAccount = () => {
           .post("http://localhost:5000/login", userdata)
           .then(function (response) {
             console.log(response.data);
-            localStorage.setItem("user", "heyThere");
+            localStorage.setItem("user", JSON.stringify(userdata));
             console.log("localSTORAGE promise=>", localStorage.getItem("user"));
           })
           .catch(function (error) {
@@ -82,11 +82,25 @@ function Login() {
   const [show, setShow] = useState(false);
   const [modal, setModal] = useState();
   const [key, setKey] = useState("sign in");
+  const [credentials, setCredentials] = useState({
+    Email: null,
+    Password: null,
+  });
   const closeModal = () => setShow(false);
   const showModal = () => setShow(true);
+
+  //CHECK FOR LOGGED IN USER
+  useEffect(() => {
+    const data = localStorage.getItem("loggedUser");
+    if (data) {
+      setLogged(true);
+    }
+  });
+
   useEffect(
     function persistForm() {
-      if (logged == false) {
+      var browserStorage = localStorage.getItem("loggedUser");
+      if (logged === false) {
         setSigned("Not signed in!");
         setModal("sign in");
         $("#MButton").show();
@@ -100,11 +114,9 @@ function Login() {
     [logged]
   );
 
-  const LogMeIn = (credentials) => {
+  const LogMeIn = () => {
     useEffect(
       function persistForm() {
-        // let nullVal = !Object.values(credentials).every((o) => o === null);
-        // let emptyVal = !Object.values(credentials).every((o) => o === "");
         if (
           credentials.Password != null &&
           credentials.Password != "" &&
@@ -115,7 +127,10 @@ function Login() {
           axios
             .post("http://localhost:5000/enter", credentials)
             .then(function (response) {
-              // console.log("matching user=> ", response.data);
+              localStorage.setItem(
+                "loggedUser",
+                JSON.stringify({ logged: true }, credentials)
+              );
               setLogged(true);
             })
             .catch(function (error) {
@@ -130,10 +145,6 @@ function Login() {
   };
 
   const SignIn = () => {
-    const [credentials, setCredentials] = useState({
-      Email: null,
-      Password: null,
-    });
     const handleSigninData = (e) =>
       setCredentials({
         ...credentials,
@@ -159,14 +170,24 @@ function Login() {
           />
           <br></br>
         </form>
-        <button onClick={LogMeIn(credentials)}>Sign in</button>
+        <button onClick={LogMeIn()}>Sign in</button>
       </div>
     );
   };
 
   const logOut = () => {
-    if (logged == true) {
-      return <button onClick={() => setLogged(false)}>Log Out</button>;
+    var browserStorage = localStorage.getItem("loggedUser");
+    if (logged === true) {
+      return (
+        <button
+          onClick={() => {
+            setLogged(false);
+            localStorage.clear();
+          }}
+        >
+          Log Out
+        </button>
+      );
     }
   };
 

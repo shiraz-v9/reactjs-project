@@ -31,12 +31,12 @@ mongoose
   .then((result) => console.log("connected to Mongose client"))
   .catch((error) => console.log(error));
 
-mongo.connect(url, function (err, db) {
-  if (err) throw err;
-  if (err) throw err;
-  console.log("=> Connected with Mongo DB!");
-  db.close();
-});
+// mongo.connect(url, function (err, db) {
+//   if (err) throw err;
+//   if (err) throw err;
+//   console.log("=> Connected with Mongo DB!");
+//   db.close();
+// });
 
 app.get("/resample", (req, res) => {
   html
