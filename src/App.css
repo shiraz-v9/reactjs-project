@@ -5,7 +5,7 @@
 }
 
 .navbar {
-  border-radius: 5px;
+  /* border-radius: 5px; */
   background-color: #2f3035;
   display: flex;
   flex-direction: row;
@@ -78,4 +78,18 @@ button:hover {
 
 .modalContent {
   padding: 30px;
+}
+
+.loginPage {
+  text-align: center; /* !!! */
+  margin: 0 auto;
+  padding: 90px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  /* justify-content: space-evenly; */
+  text-align: center;
+  background-color: #5d606e;
+  /* width: 50%; */
+  /* height: 500px; */
 }

@@ -45,7 +45,7 @@ function GetRequest() {
     <div>
       {items.map((x) => (
         <ListItem
-          key={x.id.toString()}
+          key={x._id.toString()}
           tag={x.tagName}
           example={x.tagExample}
           description={x.tagDescription}

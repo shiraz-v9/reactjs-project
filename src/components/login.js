@@ -31,13 +31,15 @@ const CreateAccount = () => {
           .post("http://localhost:5000/login", userdata)
           .then(function (response) {
             console.log(response.data);
-            setStatus("Account Created");
+            localStorage.setItem("user", "heyThere");
+            console.log("localSTORAGE promise=>", localStorage.getItem("user"));
           })
           .catch(function (error) {
             console.log(error);
           });
       } else {
         console.log("empty");
+        console.log("localSTORAGE =>", localStorage.getItem("user"));
       }
     }, [userdata]);
   };
@@ -171,7 +173,12 @@ function Login() {
   return (
     <div>
       <span
-        style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          paddingTop: "30px",
+        }}
       >
         <h5>{signed}</h5>
         <button id="MButton" onClick={showModal}>

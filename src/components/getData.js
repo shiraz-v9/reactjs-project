@@ -39,7 +39,7 @@ function GetData() {
       <h4 className="sticky">AZ Tags</h4>
 
       {posts.map((x) => (
-        <ListItem key={x.id.toString()} value={x.tagName} id={x.id} />
+        <ListItem key={x._id.toString()} value={x.tagName} id={x.id} />
       ))}
     </div>
   );
