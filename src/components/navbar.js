@@ -24,7 +24,7 @@ function Navbar() {
         <a href="http://localhost:3000/login">Log-in</a>
       </ul>
       <ul className="navul">
-        <a href="http://localhost:3000/about">About</a>
+        <a href="http://localhost:3000/community">Community</a>
       </ul>
     </div>
   );

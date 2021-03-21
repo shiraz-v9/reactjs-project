@@ -18,3 +18,11 @@ const userSchema = new Schema({
 
 const users = mongoose.model("users", userSchema);
 module.exports = users;
+
+const communityPosts = new Schema({
+  postQuestion: String,
+  postAnswer: [{}],
+});
+
+const posts = mongoose.model("posts", communityPosts);
+module.exports = posts;

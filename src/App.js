@@ -1,6 +1,6 @@
 import "./App.css";
 import Navbar from "./components/navbar";
-import About from "./components/about";
+import Community from "./components/communityPage";
 import Home from "./components/home";
 import loginPage from "./components/loginPage";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -13,7 +13,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home}></Route>
           <Route path="/login" exact component={loginPage}></Route>
-          <Route path="/about" exact component={About}></Route>
+          <Route path="/community" exact component={Community}></Route>
         </Switch>
       </div>
     </BrowserRouter>

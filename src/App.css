@@ -1,3 +1,6 @@
+.Body {
+  /* background-color: #5d606e; */
+}
 :root {
   --accentColor: rgb(0, 89, 255);
   --fontColor: #000000;
@@ -81,19 +84,23 @@ button:hover {
 }
 
 .loginPage {
-  text-align: center; /* !!! */
-  margin: 0 auto;
+  text-align: center;
+  margin: 0;
+  bottom: 0;
   padding: 90px;
   display: flex;
   flex-direction: column;
   align-content: center;
   /* justify-content: space-evenly; */
   text-align: center;
-  background-color: #5d606e;
-  /* width: 50%; */
-  /* height: 500px; */
 }
 .community {
-  /* width: 50%; */
-  text-align: center;
+  /* width: 80%; */
+  padding: 20px;
+  /* text-align: center; */
+}
+.questions {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #858586;
 }

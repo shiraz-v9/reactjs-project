@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 var crypto = require("crypto");
 const html = require("../server/schema");
 const users = require("../server/schema");
+const posts = require("../server/schema");
 const TagsObj = require("../server/tagsObject");
 
 app.use(cors());
@@ -138,6 +139,45 @@ app.post("/enter", urlencodedParser, (req, res) => {
           res.send(result);
           db.close();
         }
+      });
+  });
+});
+
+app.get("/addpost", function (req, res) {
+  mongo.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("htmlNode");
+    var obj = {
+      postQuestion: "How to create a simple table in HTML?",
+      postAnswer: {
+        answer:
+          "it's simple you can build tables with TH table header and TD table tags!",
+        user: "Raphael",
+      },
+    };
+    dbo.collection("posts").insertOne(obj, function (err, res) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("1 document inserted");
+        // res.send("1 document inserted");
+        db.close();
+      }
+    });
+  });
+});
+
+app.get("/getposts", function (req, res) {
+  mongo.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("htmlNode");
+    dbo
+      .collection("posts")
+      .find({})
+      .toArray(function (err, result) {
+        if (err) throw err;
+        res.send(result);
+        db.close();
       });
   });
 });
