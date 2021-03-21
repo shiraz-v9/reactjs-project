@@ -9,7 +9,7 @@ const CreateAccount = () => {
     userPassword: null,
     email: null,
   });
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("Create a new account");
   const handleUserData = (e) =>
     setUserdata({
       ...userdata,
@@ -17,31 +17,34 @@ const CreateAccount = () => {
     });
 
   const PostUser = (userdata) => {
-    useEffect(() => {
-      if (
-        userdata.user != null &&
-        userdata.user != "" &&
-        userdata.userPassword != null &&
-        userdata.userPassword != "" &&
-        userdata.email != null &&
-        userdata.email != ""
-      ) {
-        console.log(userdata);
-        axios
-          .post("http://localhost:5000/login", userdata)
-          .then(function (response) {
-            console.log(response.data);
-            localStorage.setItem("user", JSON.stringify(userdata));
-            console.log("localSTORAGE promise=>", localStorage.getItem("user"));
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      } else {
-        console.log("empty");
-        console.log("localSTORAGE =>", localStorage.getItem("user"));
-      }
-    }, [userdata]);
+    useEffect(
+      function persistForm() {
+        if (
+          userdata.user != null &&
+          userdata.user != "" &&
+          userdata.userPassword != null &&
+          userdata.userPassword != "" &&
+          userdata.email != null &&
+          userdata.email != ""
+        ) {
+          console.log(userdata);
+          axios
+            .post("http://localhost:5000/login", userdata)
+            .then(function (response) {
+              console.log(response.data);
+              localStorage.setItem("user", JSON.stringify(userdata));
+              setStatus("Account Created you can now Log in");
+              console.log(status);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
+          console.log("empty");
+        }
+      },
+      [userdata]
+    );
   };
 
   return (
@@ -137,7 +140,7 @@ function Login() {
               console.log(error);
             });
         } else {
-          console.log("empty");
+          console.log("empty form");
         }
       },
       [credentials]
@@ -176,7 +179,6 @@ function Login() {
   };
 
   const logOut = () => {
-    var browserStorage = localStorage.getItem("loggedUser");
     if (logged === true) {
       return (
         <button

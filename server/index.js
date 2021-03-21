@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
-// var router = express.Router();
+
 const cors = require("cors");
 const bodyParser = require("body-parser");
+var crypto = require("crypto");
 const html = require("../server/schema");
 const users = require("../server/schema");
 const TagsObj = require("../server/tagsObject");
@@ -50,14 +51,6 @@ app.get("/resample", (req, res) => {
     });
 });
 
-// var db = mysql.createConnection({
-//   host: "mudfoot.doc.stu.mmu.ac.uk",
-//   port: "6306",
-//   user: "tauseefk",
-//   password: "drentaLd8",
-//   database: "tauseefk",
-// });
-
 app.get("/home", (req, res) => {
   mongo.connect(url, function (err, db) {
     if (err) throw err;
@@ -97,11 +90,14 @@ app.post("/login", function (req, res) {
   var userPassword = req.body.userPassword;
   var email = req.body.email;
   console.log(JSON.stringify(req.body));
+  var encript = crypto.createCipher("aes-128-cbc", "mypassword");
+  var pw = encript.update(userPassword, "utf8", "hex");
+  pw += encript.final("hex");
 
   mongo.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("htmlNode");
-    var obj = { userName: user, userPwd: userPassword, userEmail: email };
+    var obj = { userName: user, userPwd: pw, userEmail: email };
     dbo.collection("users").insertOne(obj, function (err, res) {
       if (err) {
         console.log(err);
@@ -118,11 +114,19 @@ app.post("/enter", urlencodedParser, (req, res) => {
   var email = req.body.Email;
   var userPassword = req.body.Password;
 
+  var encript = crypto.createCipher("aes-128-cbc", "mypassword");
+  var encrypted = encript.update(userPassword, "utf8", "hex");
+  encrypted += encript.final("hex");
+
+  var decript = crypto.createDecipher("aes-128-cbc", "mypassword");
+  var decripted = decript.update(encrypted, "hex", "utf8");
+  decripted += decript.final("utf8");
+
   console.log("logging user => ", JSON.stringify(req.body));
   mongo.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("htmlNode");
-    var query = { userPwd: userPassword, userEmail: email };
+    var query = { userPwd: decripted, userEmail: email };
     dbo
       .collection("users")
       .find(query)
@@ -136,25 +140,6 @@ app.post("/enter", urlencodedParser, (req, res) => {
         }
       });
   });
-
-  // db.query(
-  //   "SELECT * FROM tauseefk.HTMLWebUsers WHERE userEmail = '" +
-  //     email +
-  //     "' AND userPwd='" +
-  //     userPassword +
-  //     "'",
-  //   (err, rows, fields) => {
-  //     if (err) {
-  //       console.log(err);
-  //     } else if (rows == "") {
-  //       console.log("NO MATCH");
-  //       // res.send("wrong credentials");
-  //     } else {
-  //       console.log(rows);
-  //       res.send(rows);
-  //     }
-  //   }
-  // );
 });
 
 app.listen(5000, () => {
