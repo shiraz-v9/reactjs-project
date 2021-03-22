@@ -126,14 +126,14 @@ function Login() {
           credentials.Email != null &&
           credentials.Email != ""
         ) {
-          console.log(credentials);
           axios
             .post("http://localhost:5000/enter", credentials)
             .then(function (response) {
               localStorage.setItem(
                 "loggedUser",
-                JSON.stringify({ logged: true }, credentials)
+                JSON.stringify({ logged: true, user: credentials.Email })
               );
+              localStorage.setItem("user", response.data[0].userName);
               setLogged(true);
             })
             .catch(function (error) {
@@ -146,6 +146,18 @@ function Login() {
       [credentials]
     );
   };
+
+  // const GetUserDeets = () => {
+  //       axios
+  //         .get(`http://localhost:5000/userdeets`)
+  //         .then((res) => {
+  //           // console.log("posts loaded: ", res);
+
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //         });
+  // }
 
   const SignIn = () => {
     const handleSigninData = (e) =>
