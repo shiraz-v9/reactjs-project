@@ -21,8 +21,13 @@ function Community() {
       <div className="questions">
         <p style={{ fontWeight: "bold" }}>{props.question}</p>
         <p>answers:</p>
-        <p>{props.answer}</p>
-        <button>reply</button>
+        {props.answer.map((d) => (
+          <div className="comments">
+            <p>{d.user} replied:</p>
+            <li key={d.user}>{d.answer}</li>
+          </div>
+        ))}
+        <button onClick={() => console.log(props.answer)}>reply</button>
       </div>
     );
   }
@@ -34,12 +39,16 @@ function Community() {
         here you can add post to community asking anything related to building
         websites and you can get great answers!
       </p>
-
+      <span
+        style={{ display: "flex", justifyContent: "center", padding: "5px" }}
+      >
+        <button>ASK community</button>
+      </span>
       {posts.map((x) => (
         <DropData
           key={x._id.toString()}
           question={x.postQuestion}
-          answer={x.postAnswer.answer}
+          answer={x.postAnswer}
         />
       ))}
     </div>
