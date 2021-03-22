@@ -85,10 +85,12 @@ function Login() {
   const [show, setShow] = useState(false);
   const [modal, setModal] = useState();
   const [key, setKey] = useState("sign in");
+  const [message, setMessage] = useState("");
   const [credentials, setCredentials] = useState({
     Email: null,
     Password: null,
   });
+  const [userdata, setUserdata] = useState("");
   const closeModal = () => setShow(false);
   const showModal = () => setShow(true);
 
@@ -102,13 +104,12 @@ function Login() {
 
   useEffect(
     function persistForm() {
-      var browserStorage = localStorage.getItem("loggedUser");
       if (logged === false) {
         setSigned("Not signed in!");
         setModal("sign in");
         $("#MButton").show();
       } else {
-        setSigned("Welcome back user!");
+        setSigned("Welcome back " + localStorage.getItem("user"));
         setModal("");
         $("#MButton").hide();
         closeModal();
@@ -117,47 +118,32 @@ function Login() {
     [logged]
   );
 
-  const LogMeIn = () => {
-    useEffect(
-      function persistForm() {
-        if (
-          credentials.Password != null &&
-          credentials.Password != "" &&
-          credentials.Email != null &&
-          credentials.Email != ""
-        ) {
-          axios
-            .post("http://localhost:5000/enter", credentials)
-            .then(function (response) {
-              localStorage.setItem(
-                "loggedUser",
-                JSON.stringify({ logged: true, user: credentials.Email })
-              );
-              localStorage.setItem("user", response.data[0].userName);
-              setLogged(true);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-        } else {
-          console.log("empty form");
-        }
-      },
-      [credentials]
-    );
-  };
-
-  // const GetUserDeets = () => {
-  //       axios
-  //         .get(`http://localhost:5000/userdeets`)
-  //         .then((res) => {
-  //           // console.log("posts loaded: ", res);
-
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //         });
-  // }
+  useEffect(() => {
+    if (userdata !== [] && userdata !== "" && userdata !== null) {
+      axios
+        .post("http://localhost:5000/enter", userdata)
+        .then(function (response) {
+          if (!response.data.length) {
+            console.log("error", response);
+            setMessage("invalid credentials");
+          } else {
+            setMessage("");
+            localStorage.setItem(
+              "loggedUser",
+              JSON.stringify({ logged: true, user: userdata.Email })
+            );
+            localStorage.setItem("user", response.data[0].userName);
+            setLogged(true);
+            console.log(response.status);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      console.log("credentials not sent");
+    }
+  }, [userdata]);
 
   const SignIn = () => {
     const handleSigninData = (e) =>
@@ -185,7 +171,16 @@ function Login() {
           />
           <br></br>
         </form>
-        <button onClick={LogMeIn()}>Sign in</button>
+        <span
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+          }}
+        >
+          <button onClick={() => setUserdata(credentials)}>Sign in</button>
+          <p style={{ color: "red" }}>{message}</p>
+        </span>
       </div>
     );
   };
