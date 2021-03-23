@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Toast } from "react-bootstrap";
 import axios from "axios";
 
 function Community() {
@@ -7,14 +7,15 @@ function Community() {
   const [posts, setPosts] = useState([]);
   const [question, setQuestion] = useState("");
   const [input, setInput] = useState("");
+  const [toast, setToast] = useState(false);
   const closeModal = () => setShow(false);
   const showModal = () => setShow(true);
+  const toggleToast = () => setToast(!toast);
 
   useEffect(() => {
     axios
       .get(`http://localhost:5000/getposts`)
       .then((res) => {
-        // console.log("posts loaded: ", res);
         setPosts(res.data);
       })
       .catch((err) => {
@@ -35,12 +36,20 @@ function Community() {
           .catch((err) => {
             console.log(err);
           });
-      } else {
-        console.log("NOT POSTING dont worry G");
       }
     },
     [question]
   );
+
+  const checkLoggedUser = () => {
+    var user = localStorage.getItem("userName");
+    if (user != undefined) {
+      showModal();
+    } else {
+      console.log("not logged in");
+      setToast();
+    }
+  };
 
   function DropData(props) {
     return (
@@ -68,7 +77,7 @@ function Community() {
             justifyContent: "flex-end",
           }}
         >
-          <button onClick={() => console.log(props.answer)}>reply</button>
+          <button onClick={checkLoggedUser}>reply</button>
         </span>
       </div>
     );
@@ -77,15 +86,34 @@ function Community() {
   return (
     <div className="community">
       <h1>Community Posts</h1>
-      <h2>{JSON.stringify(question)}</h2>
       <p>
         here you can add post to community asking anything related to building
         websites and you can get great answers!
       </p>
+
       <span
-        style={{ display: "flex", justifyContent: "center", padding: "5px" }}
+        style={{
+          // position: "revert",
+          display: "flex",
+          flexDirection: "column",
+          // justifyContent: "space-around",
+          alignItems: "baseline",
+          padding: "5px",
+        }}
       >
-        <button onClick={showModal}>ASK community</button>
+        <button onClick={checkLoggedUser}>ASK community</button>
+
+        <Toast show={toast} onClose={toggleToast}>
+          <Toast.Header>
+            <strong className="mr-auto">Alert!</strong>
+          </Toast.Header>
+          <Toast.Body>
+            You can only post questions and answers when you're{" "}
+            <a style={{ color: "blue" }} href="http://localhost:3000/login">
+              Logged In
+            </a>
+          </Toast.Body>
+        </Toast>
       </span>
       {posts.map((x) => (
         <DropData
@@ -111,7 +139,7 @@ function Community() {
             onClick={() =>
               setQuestion({
                 postQuestion: input,
-                postAuthor: localStorage.getItem("user"),
+                postAuthor: localStorage.getItem("userName"),
               })
             }
           >
