@@ -10,7 +10,7 @@ function Community() {
   const [toast, setToast] = useState(false);
   const closeModal = () => setShow(false);
   const showModal = () => setShow(true);
-  const toggleToast = () => setToast(!toast);
+  const toggleToast = () => setToast(false);
 
   useEffect(() => {
     axios
@@ -96,27 +96,26 @@ function Community() {
 
       <span
         style={{
-          // position: "revert",
           display: "flex",
-          flexDirection: "column",
-          // justifyContent: "space-around",
+          flexDirection: "row",
           alignItems: "baseline",
           padding: "5px",
         }}
       >
         <button onClick={checkLoggedUser}>ASK community</button>
-
-        <Toast show={toast} onClose={toggleToast}>
-          <Toast.Header>
-            <strong className="mr-auto">Alert!</strong>
-          </Toast.Header>
-          <Toast.Body>
-            You can only post questions and answers when you're{" "}
-            <a style={{ color: "blue" }} href="http://localhost:3000/account">
-              Logged In
-            </a>
-          </Toast.Body>
-        </Toast>
+        <span style={{ backgroundColor: "white" }}>
+          <Toast show={toast} onClose={toggleToast}>
+            <Toast.Header>
+              <strong className="mr-auto">Alert!</strong>
+            </Toast.Header>
+            <Toast.Body>
+              You can only post questions and answers when you're{" "}
+              <a style={{ color: "blue" }} href="http://localhost:3000/account">
+                Logged In
+              </a>
+            </Toast.Body>
+          </Toast>
+        </span>
       </span>
       {posts.map((x) => (
         <DropData
@@ -126,7 +125,8 @@ function Community() {
           answer={x.postAnswer}
         />
       ))}
-      <Modal show={show} onHide={closeModal}>
+
+      <Modal className="bModal" show={show} onHide={closeModal}>
         <div className="modalContent">
           <label>Question</label>
           <br></br>
@@ -137,7 +137,6 @@ function Community() {
             placeholder="Ask community"
             name="postQuestion"
           />
-
           <button
             onClick={() =>
               setQuestion({

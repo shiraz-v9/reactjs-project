@@ -20,6 +20,7 @@ app.use(express.json());
 const mongo = require("mongodb").MongoClient;
 const url = process.env.myConnection;
 const mongoose = require("mongoose");
+const { post } = require("jquery");
 
 mongoose
   .connect(url, {
@@ -81,23 +82,6 @@ app.post("/login", async (req, res) => {
     console.log(error);
     res.send("Something went wrong");
   }
-
-  // console.log(JSON.stringify(req.body));
-
-  // mongo.connect(url, function (err, db) {
-  //   if (err) throw err;
-  //   var dbo = db.db("htmlNode");
-  //   var obj = { userName: user, userPwd: pw, userEmail: email };
-  //   dbo.collection("users").insertOne(obj, function (err, res) {
-  //     if (err) {
-  //       console.log(err);
-  //     } else {
-  //       console.log("1 document inserted");
-  //       // res.send("1 document inserted");
-  //       db.close();
-  //     }
-  //   });
-  // });
 });
 
 app.post("/enter", async (req, res) => {
@@ -131,6 +115,11 @@ app.post("/addpost", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+app.post("/replypost", async (req, res) => {
+  var reply = req.body.reply;
+  post.findByIdAndUpdate();
 });
 
 app.get("/getposts", async (req, res) => {
