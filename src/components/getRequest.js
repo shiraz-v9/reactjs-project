@@ -13,9 +13,10 @@ function GetRequest() {
   function ListItem(props) {
     return (
       <div id="dataContainer">
+        <h1>HTML tutorial</h1>
         <br></br>
 
-        <h1>{props.tag}</h1>
+        <h2>{props.tag}</h2>
         <br></br>
         <code>{props.example}</code>
         <br></br>
@@ -34,7 +35,6 @@ function GetRequest() {
       .then((res) => {
         // console.log(res);
         setItems(res.data);
-        console.log("Tag received: ", res.data);
       })
       .catch((err) => {
         console.log(err);

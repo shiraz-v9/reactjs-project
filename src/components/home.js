@@ -7,7 +7,7 @@ function home() {
   return (
     <div>
       <div id="sideBar">
-        <GetData id="list" />
+        <GetData />
       </div>
 
       <div id="section">

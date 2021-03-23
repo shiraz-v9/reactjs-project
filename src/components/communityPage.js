@@ -67,7 +67,10 @@ function Community() {
         <p>answers:</p>
         {props.answer.map((d) => (
           <div className="comments">
-            <p>{d.user} replied ⤵</p>
+            <strong>
+              <p>{d.user} replied ⤵</p>
+            </strong>
+
             <ul key={d.user}>{d.answer}</ul>
           </div>
         ))}
@@ -109,7 +112,7 @@ function Community() {
           </Toast.Header>
           <Toast.Body>
             You can only post questions and answers when you're{" "}
-            <a style={{ color: "blue" }} href="http://localhost:3000/login">
+            <a style={{ color: "blue" }} href="http://localhost:3000/account">
               Logged In
             </a>
           </Toast.Body>

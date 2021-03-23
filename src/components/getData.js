@@ -17,7 +17,6 @@ function GetData() {
     axios
       .get(`http://localhost:5000/home`)
       .then((res) => {
-        console.log("Data loaded: ", res);
         setPost(res.data);
         fixHeight();
       })
@@ -27,11 +26,9 @@ function GetData() {
   }, []);
 
   const fixHeight = () => {
-    var h = window.innerHeight - 56 + "px";
-    // document.getElementById("sideBar").style.backgroundColor = "orange";
+    var h = window.innerHeight - 55 + "px";
     document.getElementById("sideBar").style.maxHeight = h;
-    document.getElementById("sideBar").style.overflow = "scroll";
-    console.log("here it is ", h);
+    document.getElementById("sideBar").style.overflowY = "scroll";
   };
 
   return (

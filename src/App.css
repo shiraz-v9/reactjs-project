@@ -1,38 +1,54 @@
 .Body {
-  /* background-color: #5d606e; */
+  background-color: #2d2d2d;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--whiteFont);
+}
+
+p {
+  color: var(--whiteFont);
+}
+
 :root {
-  --buttonColor: rgb(0, 89, 255);
+  --buttonColor: #378ad3;
   --fontColor: #000000;
   --position: 150px;
-  --accentColor: #5d606e;
+  --accentColor: #2d2d2d;
+  --mainColor: #393939;
+  --commentColor: #1c1b1b;
+  --whiteFont: #ffffff;
 }
 
 .navbar {
-  /* border-radius: 5px; */
-  background-color: #2f3035;
+  border-radius: 10px;
+  background-color: var(--mainColor);
   display: flex;
   flex-direction: row;
   height: 55px;
   justify-content: flex-start;
 }
+
 .navul {
-  padding: 6px;
-  color: white;
-  /* align-items: baseline; */
-  /* padding-bottom: 0px !important; */
+  padding: 3px;
 }
+
 .navul:hover {
   color: green !important;
 }
 
-a:hover {
-  color: green;
-  /* font-style: italic; */
-}
 a:visited {
-  color: white;
+  color: white !important;
 }
+
+a:hover {
+  color: hotpink !important;
+}
+
 li {
   list-style-type: none;
   padding: 10px;
@@ -46,11 +62,13 @@ button {
   color: whitesmoke;
   background-color: var(--buttonColor);
 }
+
 button:hover {
   background-color: rgb(0, 62, 179);
 }
+
 #sideBar {
-  background-color: var(--accentColor);
+  background-color: var(--mainColor);
   max-width: var(--position);
 }
 
@@ -58,7 +76,7 @@ button:hover {
   position: absolute;
   top: 50px;
   left: var(--position);
-  /* margin-left: auto; */
+  /* margin: auto; */
 }
 
 .list {
@@ -70,14 +88,16 @@ button:hover {
 }
 
 #dataContainer {
+  padding-top: 20px;
   padding-left: 20px;
   width: 80%;
 }
+
 .sticky {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background-color: #5d606e;
+  background-color: var(--mainColor);
 }
 
 .modalContent {
@@ -85,29 +105,31 @@ button:hover {
 }
 
 .loginPage {
-  text-align: center;
-  margin: 0;
+  width: 80%;
+  /* text-align: center; */
+  margin: auto;
   bottom: 0;
-  padding: 90px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  align-content: center;
-  /* justify-content: space-evenly; */
-  text-align: center;
 }
+
 .community {
   width: 80%;
   margin: auto;
   padding: 20px;
   align-content: center;
 }
+
 .questions {
   padding: 20px;
   border-radius: 10px;
-  background-color: var(--accentColor);
+  background-color: var(--mainColor);
 }
+
 .comments {
   padding: 5px;
-  background-color: rgb(255, 255, 255);
+  color: var(--whiteFont);
+  background-color: var(--commentColor);
   /* border-radius: 5px; */
 }
