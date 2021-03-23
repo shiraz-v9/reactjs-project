@@ -45,8 +45,16 @@ function Community() {
   function DropData(props) {
     return (
       <div className="questions">
-        <p style={{ fontWeight: "bold" }}>{props.question}</p>
-
+        <span
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+          }}
+        >
+          <p style={{ fontWeight: "bold" }}>{props.question}</p>
+          <p>asked by {props.author}</p>
+        </span>
         <p>answers:</p>
         {props.answer.map((d) => (
           <div className="comments">
@@ -54,7 +62,14 @@ function Community() {
             <ul key={d.user}>{d.answer}</ul>
           </div>
         ))}
-        <button onClick={() => console.log(props.answer)}>reply</button>
+        <span
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <button onClick={() => console.log(props.answer)}>reply</button>
+        </span>
       </div>
     );
   }
@@ -75,6 +90,7 @@ function Community() {
       {posts.map((x) => (
         <DropData
           key={x._id.toString()}
+          author={x.postAuthor}
           question={x.postQuestion}
           answer={x.postAnswer}
         />

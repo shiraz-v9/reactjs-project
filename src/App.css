@@ -96,9 +96,10 @@ button:hover {
   text-align: center;
 }
 .community {
-  /* width: 80%; */
+  width: 80%;
+  margin: auto;
   padding: 20px;
-  /* text-align: center; */
+  align-content: center;
 }
 .questions {
   padding: 20px;

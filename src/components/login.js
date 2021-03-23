@@ -4,48 +4,39 @@ import $ from "jquery";
 import axios from "axios";
 
 const CreateAccount = () => {
+  const [postuser, setPostuser] = useState(null);
+  const [status, setStatus] = useState("Create a new account");
+  const [message, setMessage] = useState("");
   const [userdata, setUserdata] = useState({
     user: null,
     userPassword: null,
     email: null,
   });
-  const [status, setStatus] = useState("Create a new account");
+
   const handleUserData = (e) =>
     setUserdata({
       ...userdata,
       [e.currentTarget.name]: e.currentTarget.value,
     });
 
-  const PostUser = (userdata) => {
-    useEffect(
-      function persistForm() {
-        if (
-          userdata.user != null &&
-          userdata.user != "" &&
-          userdata.userPassword != null &&
-          userdata.userPassword != "" &&
-          userdata.email != null &&
-          userdata.email != ""
-        ) {
-          console.log(userdata);
-          axios
-            .post("http://localhost:5000/login", userdata)
-            .then(function (response) {
-              console.log(response.data);
-              localStorage.setItem("user", JSON.stringify(userdata));
-              setStatus("Account Created you can now Log in");
-              console.log(status);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-        } else {
-          console.log("empty");
-        }
-      },
-      [userdata]
-    );
-  };
+  useEffect(() => {
+    if (postuser !== null) {
+      console.log(postuser);
+      axios
+        .post("http://localhost:5000/login", postuser)
+        .then(function (response) {
+          console.log(response.data);
+          // localStorage.setItem("user", JSON.stringify(userdata));
+          setMessage(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+          setMessage("not created, check data again");
+        });
+    } else {
+      console.log("NOT CREATING USER DW");
+    }
+  }, [postuser]);
 
   return (
     <div className="modalContent">
@@ -74,7 +65,16 @@ const CreateAccount = () => {
         name="email"
       />
       <br></br>
-      <button onClick={PostUser(userdata)}>Create account</button>
+      <span
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "baseline",
+        }}
+      >
+        <button onClick={() => setPostuser(userdata)}>Create account</button>
+        <p>{message}</p>
+      </span>
     </div>
   );
 };
@@ -87,10 +87,10 @@ function Login() {
   const [key, setKey] = useState("sign in");
   const [message, setMessage] = useState("");
   const [credentials, setCredentials] = useState({
-    Email: null,
-    Password: null,
+    Email: "",
+    Password: "",
   });
-  const [userdata, setUserdata] = useState("");
+  const [logindata, setLogindata] = useState("");
   const closeModal = () => setShow(false);
   const showModal = () => setShow(true);
 
@@ -109,7 +109,7 @@ function Login() {
         setModal("sign in");
         $("#MButton").show();
       } else {
-        setSigned("Welcome back " + localStorage.getItem("user"));
+        setSigned("Welcome back " + localStorage.getItem("userName"));
         setModal("");
         $("#MButton").hide();
         closeModal();
@@ -119,9 +119,9 @@ function Login() {
   );
 
   useEffect(() => {
-    if (userdata !== [] && userdata !== "" && userdata !== null) {
+    if (logindata !== "") {
       axios
-        .post("http://localhost:5000/enter", userdata)
+        .post("http://localhost:5000/enter", logindata)
         .then(function (response) {
           if (!response.data.length) {
             console.log("error", response);
@@ -130,9 +130,9 @@ function Login() {
             setMessage("");
             localStorage.setItem(
               "loggedUser",
-              JSON.stringify({ logged: true, user: userdata.Email })
+              JSON.stringify({ logged: true, user: logindata.Email })
             );
-            localStorage.setItem("user", response.data[0].userName);
+            localStorage.setItem("userName", response.data[0].userName);
             setLogged(true);
             console.log(response.status);
           }
@@ -143,7 +143,7 @@ function Login() {
     } else {
       console.log("credentials not sent");
     }
-  }, [userdata]);
+  }, [logindata]);
 
   const SignIn = () => {
     const handleSigninData = (e) =>
@@ -178,11 +178,21 @@ function Login() {
             alignItems: "baseline",
           }}
         >
-          <button onClick={() => setUserdata(credentials)}>Sign in</button>
+          <button onClick={validation}>Sign in</button>
           <p style={{ color: "red" }}>{message}</p>
         </span>
       </div>
     );
+  };
+
+  const validation = () => {
+    console.log(credentials);
+    if (!credentials.Email.length || !credentials.Password.length) {
+      console.log("CANNOT leave empty");
+    } else {
+      setLogindata(credentials);
+      console.log("Validation not working");
+    }
   };
 
   const logOut = () => {
