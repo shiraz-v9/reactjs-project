@@ -8,9 +8,9 @@ const CreateAccount = () => {
   const [status, setStatus] = useState("Create a new account");
   const [message, setMessage] = useState("");
   const [userdata, setUserdata] = useState({
-    user: null,
-    userPassword: null,
-    email: null,
+    user: "",
+    userPassword: "",
+    email: "",
   });
 
   const handleUserData = (e) =>
@@ -21,22 +21,32 @@ const CreateAccount = () => {
 
   useEffect(() => {
     if (postuser !== null) {
-      console.log(postuser);
       axios
         .post("http://localhost:5000/login", postuser)
         .then(function (response) {
           console.log(response.data);
-          // localStorage.setItem("user", JSON.stringify(userdata));
           setMessage(response.data);
         })
         .catch(function (error) {
           console.log(error);
           setMessage("not created, check data again");
         });
-    } else {
-      console.log("NOT CREATING USER DW");
     }
   }, [postuser]);
+
+  const newUserValidation = () => {
+    console.log(userdata);
+    if (
+      !userdata.user.length ||
+      !userdata.userPassword.length ||
+      !userdata.email.length
+    ) {
+      setMessage("CANNOT leave empty");
+    } else {
+      setMessage("");
+      setPostuser(userdata);
+    }
+  };
 
   return (
     <div className="modalContent">
@@ -72,8 +82,8 @@ const CreateAccount = () => {
           alignItems: "baseline",
         }}
       >
-        <button onClick={() => setPostuser(userdata)}>Create account</button>
-        <p>{message}</p>
+        <button onClick={newUserValidation}>Create account</button>
+        <p style={{ color: "red" }}>{message}</p>
       </span>
     </div>
   );
@@ -140,8 +150,6 @@ function Login() {
         .catch(function (error) {
           console.log(error);
         });
-    } else {
-      console.log("credentials not sent");
     }
   }, [logindata]);
 
@@ -188,10 +196,10 @@ function Login() {
   const validation = () => {
     console.log(credentials);
     if (!credentials.Email.length || !credentials.Password.length) {
-      console.log("CANNOT leave empty");
+      setMessage("CANNOT leave empty");
     } else {
       setLogindata(credentials);
-      console.log("Validation not working");
+      setMessage("");
     }
   };
 
