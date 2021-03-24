@@ -117,9 +117,43 @@ app.post("/addpost", async (req, res) => {
   }
 });
 
+//only updates original comment!
+// app.post("/replypost", async (req, res) => {
+//   // var reply = req.body.reply;
+//   var id = "605a5e6edc36f50e84c24f58";
+//   await posts.findByIdAndUpdate(
+//     id,
+//     {
+//       postAnswer: {
+//         user: "kashiff",
+//         answer: "sorrybut i dont know",
+//       },
+//     },
+
+//     function (err, doc) {
+//       console.log(doc);
+//       res.send("comment posted!");
+//     }
+//   );
+// });
+
 app.post("/replypost", async (req, res) => {
-  var reply = req.body.reply;
-  post.findByIdAndUpdate();
+  var obj = {
+    user: "Ahmedunsdzone",
+    answer: "i dont like Naruto 🐱‍👤",
+  };
+
+  var id = "605a5e6edc36f50e84c24f58";
+
+  try {
+    await posts.findOne({ _id: id }).then(function (comment) {
+      comment.postAnswer.push(obj);
+      comment.save();
+      res.json(comment);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.get("/getposts", async (req, res) => {
