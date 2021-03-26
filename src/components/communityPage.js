@@ -4,13 +4,23 @@ import axios from "axios";
 
 function Community() {
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
+  const [question, setQuestion] = useState({
+    postQuestion: "",
+    postAuthor: "",
+  });
+  const [answer, setAnswer] = useState({ message: "" });
   const [input, setInput] = useState("");
   const [toast, setToast] = useState(false);
+  const [postid, setPostid] = useState({ id: "", message: "", user: "" });
+  const [message, setMessage] = useState("");
+  const [message2, setMessage2] = useState("");
+  const [value, setValue] = useState("");
   const closeModal = () => setShow(false);
   const showModal = () => setShow(true);
+  const closeModal2 = () => setShow2(false);
+  const showModal2 = () => setShow2(true);
   const toggleToast = () => setToast(false);
 
   useEffect(() => {
@@ -25,34 +35,35 @@ function Community() {
   }, []);
 
   const handleTextArea = (e) => setInput(e.currentTarget.value);
-  const getPostId = (e) => {
-    // setAnswer();
-    let d = new Date().toString();
-    console.log(e.currentTarget.name, d, "REPLY=> ");
-  };
+
   const handleReply = (e) => {
-    // const value = e.target.value;
-    // console.log(value);
-    setAnswer(e.target.value);
+    // e.preventDefault();
+    setAnswer({
+      ...answer,
+      // id: e.currentTarget.name,
+      message: e.currentTarget.value,
+      user: localStorage.getItem("userName"),
+    });
   };
 
   useEffect(
     function persistForm() {
-      if (question !== [] && question !== "" && question !== null) {
+      if (question.postQuestion !== "") {
         axios
           .post(`http://localhost:5000/addpost`, question)
           .then(function (response) {
             console.log(response.data);
+            closeModal();
           })
           .catch((err) => {
             console.log(err);
           });
+      } else {
+        console.log("stopped");
       }
     },
     [question]
   );
-
-  // useEffect(() => {}, [answer]);
 
   const checkLoggedUser = () => {
     var user = localStorage.getItem("userName");
@@ -64,9 +75,50 @@ function Community() {
     }
   };
 
-  // const replyToQuestion = () => {
-  //   console.log(e.currentTarget.name);
-  // };
+  const validation = () => {
+    if (!input.length) {
+      console.log("add message");
+      setMessage("add message");
+    } else {
+      setMessage("");
+      setQuestion({
+        ...question,
+        postQuestion: input,
+        postAuthor: localStorage.getItem("userName"),
+      });
+    }
+  };
+
+  const replyValidation = () => {
+    console.log(answer);
+    if (answer.message == undefined) {
+      setMessage2("add reply");
+      console.log("add reply");
+    } else {
+      setPostid(answer);
+      setMessage2("");
+    }
+  };
+
+  useEffect(
+    function persistForm() {
+      if (postid.message == "") {
+        console.log("not posting");
+      } else {
+        console.log("USE EFFECT REPKLYPOST");
+        axios
+          .post(`http://localhost:5000/replypost`, postid)
+          .then(function (response) {
+            console.log(response.data);
+            closeModal2();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    [postid]
+  );
 
   function DropData(props) {
     return (
@@ -82,31 +134,30 @@ function Community() {
           <p>asked by {props.author}</p>
         </span>
         <p>answers:</p>
-        {props.answer.map((d) => (
-          <div className="comments">
+        {props.answer.map((d, i) => (
+          <div className="comments" key={i}>
             <strong>
               <p>{d.user} replied ⤵</p>
             </strong>
 
-            <ul key={d.user}>{d.answer}</ul>
+            <ul>{d.answer}</ul>
           </div>
         ))}
+
         <span
           style={{
             display: "flex",
-            flexDirection: "row",
-            alignItems: "baseline",
+            justifyContent: "center",
             padding: "5px",
           }}
         >
-          <Form.Control
-            as="textarea"
-            onChange={handleReply}
-            placeholder={"Your reply here..."}
-            rows={1}
-          />
-          <button name={props.id} onClick={getPostId}>
-            reply
+          <button
+            onClick={() => {
+              setAnswer({ id: props.id });
+              showModal2();
+            }}
+          >
+            Reply
           </button>
         </span>
       </div>
@@ -165,20 +216,51 @@ function Community() {
             placeholder="Ask community"
             name="postQuestion"
           />
-          <button
-            onClick={() =>
-              setQuestion({
-                postQuestion: input,
-                postAuthor: localStorage.getItem("userName"),
-              })
-            }
+          <span
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "baseline",
+            }}
           >
-            Post
-          </button>
+            <button onClick={validation}>Post</button>
+            <p style={{ color: "red" }}>{message}</p>
+          </span>
         </div>
 
         <Modal.Footer>
           <Button variant="light" onClick={closeModal}>
+            ❌
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal className="bModal" show={show2} onHide={closeModal2}>
+        <div className="modalContent">
+          <label>Reply</label>
+          <br></br>
+          <Form.Control
+            name="comment"
+            as="textarea"
+            rows={3}
+            className="form-control"
+            onChange={handleReply}
+            placeholder="Ask community"
+          />
+          <span
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "baseline",
+            }}
+          >
+            <button onClick={replyValidation}>Post</button>
+            <p style={{ color: "red" }}>{message2}</p>
+          </span>
+        </div>
+
+        <Modal.Footer>
+          <Button variant="light" onClick={closeModal2}>
             ❌
           </Button>
         </Modal.Footer>

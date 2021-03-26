@@ -21,6 +21,7 @@ const mongo = require("mongodb").MongoClient;
 const url = process.env.myConnection;
 const mongoose = require("mongoose");
 const { post } = require("jquery");
+const { response } = require("express");
 
 mongoose
   .connect(url, {
@@ -138,21 +139,22 @@ app.post("/addpost", async (req, res) => {
 // });
 
 app.post("/replypost", async (req, res) => {
+  console.log(req.body);
   var obj = {
-    user: "Ahmedunsdzone",
-    answer: "i dont like Naruto 🐱‍👤",
+    user: req.body.user,
+    answer: req.body.message,
   };
 
-  var id = "605a5e6edc36f50e84c24f58";
-
   try {
-    await posts.findOne({ _id: id }).then(function (comment) {
+    await posts.findOne({ _id: req.body.id }).then(function (comment) {
       comment.postAnswer.push(obj);
       comment.save();
-      res.json(comment);
+      // res.json(comment);
+      res.send("comment posted");
     });
   } catch (error) {
     console.log(error);
+    res.send("error");
   }
 });
 
