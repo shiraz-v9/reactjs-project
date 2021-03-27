@@ -5,7 +5,9 @@ const communityPosts = new Schema({
   postQuestion: String,
   postAuthor: String,
   postDate: Date,
-  postAnswer: [{ user: String, answer: String, answerDate: Date }],
+  postAnswer: [
+    { userID: String, user: String, answer: String, answerDate: Date },
+  ],
 });
 
 // const answers = new Schema({

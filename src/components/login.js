@@ -143,6 +143,7 @@ function Login() {
               JSON.stringify({ logged: true, user: logindata.Email })
             );
             localStorage.setItem("userName", response.data[0].userName);
+            localStorage.setItem("id", response.data[0]._id);
             setLogged(true);
             console.log(response.status);
           }

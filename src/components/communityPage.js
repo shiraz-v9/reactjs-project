@@ -40,7 +40,7 @@ function Community() {
     // e.preventDefault();
     setAnswer({
       ...answer,
-      // id: e.currentTarget.name,
+      userID: localStorage.getItem("id"),
       message: e.currentTarget.value,
       user: localStorage.getItem("userName"),
     });
@@ -54,6 +54,7 @@ function Community() {
           .then(function (response) {
             console.log(response.data);
             closeModal();
+            window.location.reload();
           })
           .catch((err) => {
             console.log(err);
@@ -91,9 +92,11 @@ function Community() {
 
   const replyValidation = () => {
     console.log(answer);
-    if (answer.message == undefined) {
+    if (localStorage.getItem("userName") == undefined) {
+      setMessage2("You're not logged in");
+    } else if (answer.message == undefined) {
       setMessage2("add reply");
-      console.log("add reply");
+      console.log("add reply - not logged in");
     } else {
       setPostid(answer);
       setMessage2("");
@@ -111,6 +114,7 @@ function Community() {
           .then(function (response) {
             console.log(response.data);
             closeModal2();
+            window.location.reload();
           })
           .catch((err) => {
             console.log(err);
@@ -181,11 +185,12 @@ function Community() {
         }}
       >
         <button onClick={checkLoggedUser}>ASK community</button>
-        <span style={{ backgroundColor: "white" }}>
+        <span style={{ backgroundColor: "#393939", color: "white" }}>
           <Toast show={toast} onClose={toggleToast}>
             <Toast.Header>
               <strong className="mr-auto">Alert!</strong>
             </Toast.Header>
+
             <Toast.Body>
               You can only post questions and answers when you're{" "}
               <a style={{ color: "blue" }} href="http://localhost:3000/account">

@@ -100,7 +100,7 @@ app.post("/enter", async (req, res) => {
   var person = { userPwd: encrypted, userEmail: email };
 
   try {
-    const q = await users.find(person, "userName").exec();
+    const q = await users.find(person, "userName _id").exec();
     res.json(q);
   } catch (error) {
     console.log(error);
@@ -141,6 +141,7 @@ app.post("/addpost", async (req, res) => {
 app.post("/replypost", async (req, res) => {
   console.log(req.body);
   var obj = {
+    userID: req.body.userID,
     user: req.body.user,
     answer: req.body.message,
   };
