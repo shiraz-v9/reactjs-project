@@ -1,3 +1,10 @@
+## Home Page
+[![](https://i.imgur.com/clAoboS.png)](https://i.imgur.com/clAoboS.png)
+## Account Page
+[![Account Page](https://i.imgur.com/1xZbWka.png "Account Page")](https://i.imgur.com/1xZbWka.png "Account Page")
+## Community Page
+[![](https://i.imgur.com/45TVPb1.png)](https://i.imgur.com/45TVPb1.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
