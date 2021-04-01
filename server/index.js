@@ -8,7 +8,9 @@ var crypto = require("crypto");
 const html = require("./tagSchema");
 const users = require("./userSchema");
 const posts = require("./postSchema");
+const quiz = require("./quizSchema");
 const TagsObj = require("../server/tagsObject");
+const quizOBJ = require("../server/quizObject");
 
 app.use(cors());
 app.use(express.json());
@@ -118,6 +120,27 @@ app.post("/addpost", async (req, res) => {
   }
 });
 
+app.get("/getquiz", async (req, res) => {
+  const aquiz = await quiz.find({ quizName: "quiz1" });
+  try {
+    res.json(aquiz);
+    // res.send("hello");
+    console.log(aquiz);
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+});
+
+app.post("/resamplequiz", (req, res) => {
+  try {
+    quiz.create(quizOBJ);
+    console.log("Data inserted"); // Success
+    res.json(quizOBJ);
+  } catch (error) {
+    console.log(error);
+  }
+});
 //only updates original comment!
 // app.post("/replypost", async (req, res) => {
 //   // var reply = req.body.reply;

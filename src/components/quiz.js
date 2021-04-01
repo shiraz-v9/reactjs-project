@@ -8,6 +8,7 @@ function Quiz() {
       console.log("no quiz");
       $(".toHide").show("slow");
       $(".message").hide();
+      console.log(JSON.stringify(quiz1));
     } else {
       console.log("set");
       $(".toHide").hide("slow");
