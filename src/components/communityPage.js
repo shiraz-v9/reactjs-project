@@ -250,7 +250,7 @@ function Community() {
             rows={3}
             className="form-control"
             onChange={handleReply}
-            placeholder="Ask community"
+            placeholder="Reply"
           />
           <span
             style={{

@@ -255,6 +255,9 @@ function Login() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <div>
+        <h2>My posts</h2>
+      </div>
     </div>
   );
 }

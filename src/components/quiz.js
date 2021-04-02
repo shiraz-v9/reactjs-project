@@ -56,24 +56,34 @@ function Quiz() {
     if (quiz !== "") {
       return (
         <div>
-          <p style={{ textAlign: "center" }}>
-            <strong>{quiz[selection].quizName}</strong>
-          </p>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              padding: "20px",
+            }}
+          >
+            <p>
+              <strong>{quiz[selection].quizName}</strong>
+            </p>
+            <p>
+              Question {currentQuestion + 1}/{quiz[selection].question.length}
+            </p>
+          </div>
 
-          <p>
-            <div className="questions toHide">
-              <li>{quiz[selection].question[currentQuestion].question}</li>
-            </div>
-            <div className="answers toHide">
-              {quiz[selection].question[currentQuestion].option.map((y) => (
-                <span style={{ display: "flex", flexDirection: "column" }}>
-                  <button onClick={() => handleScore(y.isCorrect)}>
-                    {y.answer}
-                  </button>
-                </span>
-              ))}
-            </div>
-          </p>
+          <div className="questions toHide">
+            <p>{quiz[selection].question[currentQuestion].question}</p>
+          </div>
+          <div className="answers toHide">
+            {quiz[selection].question[currentQuestion].option.map((y) => (
+              <span style={{ display: "flex", flexDirection: "column" }}>
+                <button onClick={() => handleScore(y.isCorrect)}>
+                  {y.answer}
+                </button>
+              </span>
+            ))}
+          </div>
         </div>
       );
     }
@@ -81,6 +91,7 @@ function Quiz() {
 
   const renderScore = () => {
     if (quiz !== "" && showScore == true) {
+      $(".toHide").hide();
       return (
         <div className="quizScore">
           <p>
@@ -103,9 +114,33 @@ function Quiz() {
           justifyContent: "space-evenly",
         }}
       >
-        <button>Restart</button>
-        <button onClick={() => setSelection(0)}>Quiz 1</button>
-        <button onClick={() => setSelection(1)}>Quiz 2</button>
+        <button
+          className="restartBtn"
+          onClick={() => {
+            setScore(0);
+            $(".toHide").show("slow");
+            setShowScore(false);
+            setCurrentQuestion(0);
+          }}
+        >
+          restart 🔄
+        </button>
+        <button
+          onClick={() => {
+            setSelection(0);
+            setCurrentQuestion(0);
+          }}
+        >
+          Quiz 1
+        </button>
+        <button
+          onClick={() => {
+            setSelection(1);
+            setCurrentQuestion(0);
+          }}
+        >
+          Quiz 2
+        </button>
       </span>
       <div>{selectQuiz()}</div>
     </div>

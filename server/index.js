@@ -120,6 +120,17 @@ app.post("/addpost", async (req, res) => {
   }
 });
 
+app.get("/mypost", async (req, res) => {
+  const data = await posts.findOne({ userID: "60579272980cb93ea8a91140" });
+
+  try {
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+});
+
 app.get("/getquiz", async (req, res) => {
   const aquiz = await quiz.find({});
   try {

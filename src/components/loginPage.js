@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Login from "./login";
 
-function loginPage() {
+function LoginPage() {
   return (
     <div className="loginPage">
       <h1>Account</h1>
@@ -14,4 +14,4 @@ function loginPage() {
   );
 }
 
-export default loginPage;
+export default LoginPage;
