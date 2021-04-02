@@ -121,11 +121,9 @@ app.post("/addpost", async (req, res) => {
 });
 
 app.get("/getquiz", async (req, res) => {
-  const aquiz = await quiz.find({ quizName: "quiz1" });
+  const aquiz = await quiz.find({});
   try {
     res.json(aquiz);
-    // res.send("hello");
-    console.log(aquiz);
   } catch (error) {
     console.log(error);
     res.json(error);
