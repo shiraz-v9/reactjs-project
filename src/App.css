@@ -146,3 +146,12 @@ button:hover {
   padding: 20px;
   border-radius: 20px;
 }
+
+.codeMirror {
+  background-color: var(--accentColor);
+  color: var(--whiteFont);
+}
+
+.iframe {
+  background-color: #ffffff;
+}
