@@ -22,7 +22,7 @@ app.use(express.json());
 const mongo = require("mongodb").MongoClient;
 const url = process.env.myConnection;
 const mongoose = require("mongoose");
-const { post } = require("jquery");
+const { post, error } = require("jquery");
 const { response } = require("express");
 
 mongoose
@@ -146,6 +146,32 @@ app.post("/resamplequiz", (req, res) => {
     quiz.create(quizOBJ);
     console.log("Data inserted"); // Success
     res.json(quizOBJ);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/myanswers/:id", async (req, res) => {
+  const q = await posts.find(
+    { "postAnswer.userID": req.params.id },
+    "postAnswer.answer postAnswer._id"
+  );
+  try {
+    res.json(q);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+app.delete("/deletecomment/:id/:commentID", async (req, res) => {
+  console.log(req.params.id, "comment ", req.params.commentID);
+
+  try {
+    await posts.updateOne(
+      { _id: req.params.commentID },
+      { $pull: { postAnswer: { _id: req.params.id } } }
+    );
+    res.send("deleted");
   } catch (error) {
     console.log(error);
   }

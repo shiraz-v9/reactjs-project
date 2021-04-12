@@ -96,6 +96,10 @@ function Login() {
   const [modal, setModal] = useState();
   const [key, setKey] = useState("sign in");
   const [message, setMessage] = useState("");
+  const [ID, setID] = useState();
+  const [commentID, setCommentID] = useState();
+  const [postID, setPostID] = useState();
+  const [comments, setComments] = useState([]);
   const [credentials, setCredentials] = useState({
     Email: "",
     Password: "",
@@ -120,6 +124,7 @@ function Login() {
         $("#MButton").show();
       } else {
         setSigned("Welcome back " + localStorage.getItem("userName"));
+        setID(localStorage.getItem("id"));
         setModal("");
         $("#MButton").hide();
         closeModal();
@@ -144,6 +149,7 @@ function Login() {
             );
             localStorage.setItem("userName", response.data[0].userName);
             localStorage.setItem("id", response.data[0]._id);
+            setID(response.data[0]._id);
             setLogged(true);
             console.log(response.status);
           }
@@ -153,6 +159,74 @@ function Login() {
         });
     }
   }, [logindata]);
+
+  //GET COMMENTS
+  useEffect(
+    function persistForm() {
+      const ID = localStorage.getItem("id");
+      if (ID != undefined || ID != null) {
+        axios
+          .get(`http://localhost:5000/myanswers/${ID}`)
+          .then((res) => {
+            setComments(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    [ID]
+  );
+
+  //DELETE COMMENTS
+  useEffect(
+    function persistForm() {
+      if (commentID !== undefined) {
+        axios
+          .delete(`http://localhost:5000/deletecomment/${commentID}/${postID}`)
+          .then((res) => {
+            console.log("deleted ", res.data);
+            window.location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    [commentID]
+  );
+
+  const myComments = () => {
+    if (comments.length) {
+      return (
+        <div>
+          <h2>My posts</h2>
+          {comments.map((x, i) =>
+            x.postAnswer.map((c) => (
+              <span
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "baseline",
+                }}
+              >
+                <p>{c.answer}</p>{" "}
+                <button
+                  value={i}
+                  onClick={() => {
+                    setCommentID(c._id);
+                    setPostID(x._id);
+                  }}
+                >
+                  delete
+                </button>
+              </span>
+            ))
+          )}
+        </div>
+      );
+    }
+  };
 
   const SignIn = () => {
     const handleSigninData = (e) =>
@@ -211,6 +285,7 @@ function Login() {
           onClick={() => {
             setLogged(false);
             localStorage.clear();
+            window.location.reload();
           }}
         >
           Log Out
@@ -255,9 +330,7 @@ function Login() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <div>
-        <h2>My posts</h2>
-      </div>
+      <div>{myComments()}</div>
     </div>
   );
 }
