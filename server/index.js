@@ -120,17 +120,6 @@ app.post("/addpost", async (req, res) => {
   }
 });
 
-app.get("/mypost", async (req, res) => {
-  const data = await posts.findOne({ userID: "60579272980cb93ea8a91140" });
-
-  try {
-    res.json(data);
-  } catch (error) {
-    console.log(error);
-    res.json(error);
-  }
-});
-
 app.get("/getquiz", async (req, res) => {
   const aquiz = await quiz.find({});
   try {
@@ -151,12 +140,32 @@ app.post("/resamplequiz", (req, res) => {
   }
 });
 
-app.get("/myanswers/:id", async (req, res) => {
-  const q = await posts.find(
-    { "postAnswer.userID": req.params.id },
-    "postAnswer.answer postAnswer._id"
-  );
+app.get("/getposts", async (req, res) => {
+  const communityPost = await posts.find({});
   try {
+    res.json(communityPost);
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+});
+
+app.get("/getuserposts/:authorID", async (req, res) => {
+  const communityPost = await posts.find({ postAuthorID: req.params.authorID });
+  try {
+    res.json(communityPost);
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+});
+
+app.get("/myanswers/:id", async (req, res) => {
+  try {
+    const q = await posts.find(
+      { "postAnswer.userID": req.params.id },
+      { "postAnswer.$": 1 }
+    );
     res.json(q);
   } catch (error) {
     res.send(error);
@@ -176,25 +185,17 @@ app.delete("/deletecomment/:id/:commentID", async (req, res) => {
     console.log(error);
   }
 });
-//only updates original comment!
-// app.post("/replypost", async (req, res) => {
-//   // var reply = req.body.reply;
-//   var id = "605a5e6edc36f50e84c24f58";
-//   await posts.findByIdAndUpdate(
-//     id,
-//     {
-//       postAnswer: {
-//         user: "kashiff",
-//         answer: "sorrybut i dont know",
-//       },
-//     },
 
-//     function (err, doc) {
-//       console.log(doc);
-//       res.send("comment posted!");
-//     }
-//   );
-// });
+app.delete("/deletequestion/:authorID", async (req, res) => {
+  console.log("author ", req.params.authorID);
+
+  try {
+    await posts.findByIdAndRemove({ _id: req.params.authorID });
+    res.send("deleted");
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 app.post("/replypost", async (req, res) => {
   console.log(req.body);
@@ -202,6 +203,7 @@ app.post("/replypost", async (req, res) => {
     userID: req.body.userID,
     user: req.body.user,
     answer: req.body.message,
+    answerDate: req.body.answerDate,
   };
 
   try {
@@ -214,16 +216,6 @@ app.post("/replypost", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.send("error");
-  }
-});
-
-app.get("/getposts", async (req, res) => {
-  const communityPost = await posts.find({});
-  try {
-    res.json(communityPost);
-  } catch (error) {
-    console.log(error);
-    res.json(error);
   }
 });
 

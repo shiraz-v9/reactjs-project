@@ -1,25 +1,15 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-// const answersSchema = new Schema({
-//   userID: String,
-//   user: String,
-//   answer: String,
-//   answerDate: Date,
-// });
-
-// const answers = mongoose.model("answers", answersSchema);
-
 const communityPosts = new Schema({
   postQuestion: String,
   postAuthor: String,
-  postDate: Date,
+  postAuthorID: String,
+  postDate: String,
   postAnswer: [
-    { userID: String, user: String, answer: String, answerDate: Date },
+    { userID: String, user: String, answer: String, answerDate: String },
   ],
 });
 
 const posts = mongoose.model("posts", communityPosts);
-
 module.exports = posts;
-// module.exports = answers;

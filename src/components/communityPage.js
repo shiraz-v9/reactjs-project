@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Toast, Form } from "react-bootstrap";
 import axios from "axios";
+import moment from "moment";
 
 function Community() {
   const [show, setShow] = useState(false);
@@ -9,6 +10,7 @@ function Community() {
   const [question, setQuestion] = useState({
     postQuestion: "",
     postAuthor: "",
+    postAuthorID: "",
   });
   const [answer, setAnswer] = useState({ message: "" });
   const [input, setInput] = useState("");
@@ -37,12 +39,12 @@ function Community() {
   const handleTextArea = (e) => setInput(e.currentTarget.value);
 
   const handleReply = (e) => {
-    // e.preventDefault();
     setAnswer({
       ...answer,
       userID: localStorage.getItem("id"),
       message: e.currentTarget.value,
       user: localStorage.getItem("userName"),
+      answerDate: moment().format("LLL"),
     });
   };
 
@@ -86,6 +88,8 @@ function Community() {
         ...question,
         postQuestion: input,
         postAuthor: localStorage.getItem("userName"),
+        postAuthorID: localStorage.getItem("id"),
+        postDate: moment().format("LLL"),
       });
     }
   };
@@ -135,15 +139,23 @@ function Community() {
           }}
         >
           <p style={{ fontWeight: "bold" }}>{props.question}</p>
-          <p>asked by {props.author}</p>
+          <p>
+            asked by {props.author} - {props.date}
+          </p>
         </span>
         <p>answers:</p>
         {props.answer.map((d, i) => (
           <div className="comments" key={i}>
-            <strong>
+            <span
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "baseline",
+              }}
+            >
               <p>{d.user} replied ⤵</p>
-            </strong>
-
+              <p>{d.answerDate}</p>
+            </span>
             <ul>{d.answer}</ul>
           </div>
         ))}
@@ -151,7 +163,7 @@ function Community() {
         <span
           style={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-end",
             padding: "5px",
           }}
         >
@@ -207,6 +219,7 @@ function Community() {
           author={x.postAuthor}
           question={x.postQuestion}
           answer={x.postAnswer}
+          date={x.postDate}
         />
       ))}
 

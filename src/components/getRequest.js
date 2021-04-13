@@ -72,7 +72,7 @@ function GetRequest() {
             title="output"
             sandbox="allow-scripts"
             // frameBorder="0"
-            width="50%"
+            width="100%"
             // height="100%"
           />
         </div>

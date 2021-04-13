@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal, Tab, Tabs } from "react-bootstrap";
 import $ from "jquery";
 import axios from "axios";
+import moment from "moment";
 
 const CreateAccount = () => {
   const [postuser, setPostuser] = useState(null);
@@ -99,7 +100,9 @@ function Login() {
   const [ID, setID] = useState();
   const [commentID, setCommentID] = useState();
   const [postID, setPostID] = useState();
+  const [questionID, setQuestionID] = useState();
   const [comments, setComments] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [credentials, setCredentials] = useState({
     Email: "",
     Password: "",
@@ -196,6 +199,38 @@ function Login() {
     [commentID]
   );
 
+  //GET USER POSTS
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/getuserposts/${localStorage.getItem("id")}`)
+      .then((res) => {
+        setQuestions(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  //DELETE USER POSTS
+  useEffect(
+    function persistForm() {
+      if (questionID !== undefined) {
+        console.log(questionID);
+        axios
+          .delete(`http://localhost:5000/deletequestion/${questionID}`)
+          .then((res) => {
+            console.log("deleted ", res.data);
+            window.location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    [questionID]
+  );
+
   const myComments = () => {
     if (comments.length) {
       return (
@@ -223,6 +258,35 @@ function Login() {
               </span>
             ))
           )}
+        </div>
+      );
+    }
+  };
+
+  const myQuestions = () => {
+    if (questions.length) {
+      return (
+        <div>
+          <h2>My Questions</h2>
+          {questions.map((x, i) => (
+            <span
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "baseline",
+              }}
+            >
+              <p>{x.postQuestion}</p>{" "}
+              <button
+                value={i}
+                onClick={() => {
+                  setQuestionID(x._id);
+                }}
+              >
+                delete
+              </button>
+            </span>
+          ))}
         </div>
       );
     }
@@ -331,6 +395,7 @@ function Login() {
         </Modal.Footer>
       </Modal>
       <div>{myComments()}</div>
+      <div>{myQuestions()}</div>
     </div>
   );
 }
