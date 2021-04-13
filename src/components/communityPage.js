@@ -4,6 +4,7 @@ import axios from "axios";
 import moment from "moment";
 
 function Community() {
+  const url = "";
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -27,7 +28,7 @@ function Community() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/getposts`)
+      .get(`${url}/getposts`)
       .then((res) => {
         setPosts(res.data);
       })
@@ -52,7 +53,7 @@ function Community() {
     function persistForm() {
       if (question.postQuestion !== "") {
         axios
-          .post(`http://localhost:5000/addpost`, question)
+          .post(`${url}/addpost`, question)
           .then(function (response) {
             console.log(response.data);
             closeModal();
@@ -114,7 +115,7 @@ function Community() {
       } else {
         console.log("USE EFFECT REPKLYPOST");
         axios
-          .post(`http://localhost:5000/replypost`, postid)
+          .post(`${url}/replypost`, postid)
           .then(function (response) {
             console.log(response.data);
             closeModal2();

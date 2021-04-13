@@ -1,6 +1,5 @@
 import GetData from "../components/getData";
 import GetRequest from "../components/getRequest";
-import Login from "../components/login";
 import React from "react";
 
 function home() {
@@ -12,7 +11,6 @@ function home() {
 
       <div id="section">
         <div>
-          {/* <Login></Login> */}
           <GetRequest></GetRequest>
         </div>
       </div>

@@ -3,6 +3,7 @@ import $ from "jquery";
 import axios from "axios";
 
 function Quiz() {
+  const url = "";
   const [quiz, setQuiz] = useState("");
   const [attempt, setAttempt] = useState("");
   // useEffect(() => {
@@ -22,7 +23,7 @@ function Quiz() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/getquiz")
+      .get(`${url}/getquiz`)
       .then((res) => {
         console.log("DATA RECEIVED", res.data);
         setQuiz(res.data);

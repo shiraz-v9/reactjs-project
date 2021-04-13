@@ -4,7 +4,7 @@ function Navbar() {
   return (
     <div className="navbar sticky">
       <ul className="navul">
-        <a href="http://localhost:3000/">
+        <a href="/">
           <h5>
             HTML <strong>Tutor</strong>
             <svg
@@ -21,18 +21,14 @@ function Navbar() {
         </a>
       </ul>
 
-      {/* <ul className="navul">
-        <a href="http://localhost:3000/">Home</a>
-      </ul> */}
-
       <ul className="navul">
-        <a href="http://localhost:3000/community">Community</a>
+        <a href="/community">Community</a>
       </ul>
       <ul className="navul">
-        <a href="http://localhost:3000/quiz">Quiz</a>
+        <a href="/quiz">Quiz</a>
       </ul>
       <ul className="navul">
-        <a href="http://localhost:3000/account">Account</a>
+        <a href="/account">Account</a>
       </ul>
     </div>
   );

@@ -12,10 +12,11 @@ function ListItem(props) {
 }
 
 function GetData() {
+  const url = "";
   const [posts, setPost] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/home`)
+      .get(`${url}/home`)
       .then((res) => {
         setPost(res.data);
         fixHeight();

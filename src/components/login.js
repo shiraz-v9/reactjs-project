@@ -5,6 +5,7 @@ import axios from "axios";
 import moment from "moment";
 
 const CreateAccount = () => {
+  const url = "";
   const [postuser, setPostuser] = useState(null);
   const [status, setStatus] = useState("Create a new account");
   const [message, setMessage] = useState("");
@@ -23,7 +24,7 @@ const CreateAccount = () => {
   useEffect(() => {
     if (postuser !== null) {
       axios
-        .post("http://localhost:5000/login", postuser)
+        .post(`${url}/login`, postuser)
         .then(function (response) {
           console.log(response.data);
           setMessage(response.data);
@@ -91,6 +92,7 @@ const CreateAccount = () => {
 };
 
 function Login() {
+  const url = "";
   const [signed, setSigned] = useState("");
   const [logged, setLogged] = useState(false);
   const [show, setShow] = useState(false);
@@ -139,7 +141,7 @@ function Login() {
   useEffect(() => {
     if (logindata !== "") {
       axios
-        .post("http://localhost:5000/enter", logindata)
+        .post(`${url}/enter`, logindata)
         .then(function (response) {
           if (!response.data.length) {
             console.log("error", response);
@@ -169,7 +171,7 @@ function Login() {
       const ID = localStorage.getItem("id");
       if (ID != undefined || ID != null) {
         axios
-          .get(`http://localhost:5000/myanswers/${ID}`)
+          .get(`${url}/myanswers/${ID}`)
           .then((res) => {
             setComments(res.data);
           })
@@ -186,7 +188,7 @@ function Login() {
     function persistForm() {
       if (commentID !== undefined) {
         axios
-          .delete(`http://localhost:5000/deletecomment/${commentID}/${postID}`)
+          .delete(`${url}/deletecomment/${commentID}/${postID}`)
           .then((res) => {
             console.log("deleted ", res.data);
             window.location.reload();
@@ -202,7 +204,7 @@ function Login() {
   //GET USER POSTS
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/getuserposts/${localStorage.getItem("id")}`)
+      .get(`${url}/getuserposts/${localStorage.getItem("id")}`)
       .then((res) => {
         setQuestions(res.data);
         console.log(res.data);
@@ -218,7 +220,7 @@ function Login() {
       if (questionID !== undefined) {
         console.log(questionID);
         axios
-          .delete(`http://localhost:5000/deletequestion/${questionID}`)
+          .delete(`${url}/deletequestion/${questionID}`)
           .then((res) => {
             console.log("deleted ", res.data);
             window.location.reload();

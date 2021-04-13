@@ -9,6 +9,7 @@ import "codemirror/mode/css/css";
 import { Controlled as CodeMirror } from "react-codemirror2";
 
 function GetRequest() {
+  const url2 = "";
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
   const [js, setJs] = useState("");
@@ -87,7 +88,7 @@ function GetRequest() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/home/" + url)
+      .get(`${url2}/home/${url}`)
       .then((res) => {
         // console.log(res);
         setItems(res.data);
