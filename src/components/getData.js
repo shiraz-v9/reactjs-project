@@ -4,8 +4,7 @@ import axios from "axios";
 function ListItem(props) {
   return (
     <div>
-      <br></br>
-
+      <br />
       <a>{props.value}</a>
     </div>
   );
@@ -28,7 +27,9 @@ function GetData() {
 
   const fixHeight = () => {
     var h = window.innerHeight - 55 + "px";
-    document.getElementById("sideBar").style.maxHeight = h;
+    document.getElementById("sideBar").style.maxHeight =
+      window.innerHeight + "px";
+    // document.getElementsByClassName("Body").style.maxHeight = h;
     document.getElementById("sideBar").style.overflowY = "scroll";
   };
 

@@ -135,15 +135,14 @@ function Community() {
         <span
           style={{
             display: "flex",
+            flexDirection: "row",
             justifyContent: "space-between",
-            alignItems: "baseline",
           }}
         >
-          <p style={{ fontWeight: "bold" }}>{props.question}</p>
-          <p>
-            asked by {props.author} - {props.date}
-          </p>
+          <p>asked by {props.author}</p>
+          <p>{props.date}</p>
         </span>
+        <p style={{ fontWeight: "bold" }}>{props.question}</p>
         <p>answers:</p>
         {props.answer.map((d, i) => (
           <div className="comments" key={i}>
@@ -157,7 +156,7 @@ function Community() {
               <p>{d.user} replied ⤵</p>
               <p>{d.answerDate}</p>
             </span>
-            <ul>{d.answer}</ul>
+            <p>{d.answer}</p>
           </div>
         ))}
 

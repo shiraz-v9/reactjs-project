@@ -1,9 +1,19 @@
 ## Home Page
-[![](https://i.imgur.com/clAoboS.png)](https://i.imgur.com/clAoboS.png)
+
+<img src="https://i.imgur.com/ik9pKJz.png" alt="drawing" width="300" height="600"/>
+
 ## Account Page
-[![Account Page](https://i.imgur.com/1xZbWka.png "Account Page")](https://i.imgur.com/1xZbWka.png "Account Page")
+
+<img src="https://i.imgur.com/ImnERLp.png" alt="drawing" width="300" height="600"/>
+
 ## Community Page
-[![](https://i.imgur.com/45TVPb1.png)](https://i.imgur.com/45TVPb1.png)
+
+<img src="https://i.imgur.com/ImnERLp.png" alt="drawing" width="300" height="600"/>
+
+## Quiz Page
+
+<img src="https://i.imgur.com/oAYWUHq.png" alt="drawing" width="300" height="600"/>
+<img src="https://i.imgur.com/zbewrQ0.png" alt="drawing" width="300" height="600"/>
 
 # Getting Started with Create React App
 

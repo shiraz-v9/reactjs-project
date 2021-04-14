@@ -35,20 +35,11 @@ function GetRequest() {
     return () => clearTimeout(timeout);
   }, [html, css, js]);
 
-  // const handleChange = (editor, data, value) => {
-  //   onChange(setHtml);
-  // };
-
   function ListItem(props) {
     setHtml(props.example);
     return (
       <div id="dataContainer">
-        <h1>HTML tutorial</h1>
-        <br></br>
-
-        <h2>{props.tag} element</h2>
-        {/* <br></br> */}
-        {/* <code>{props.example}</code> */}
+        <h2>Element {props.tag}</h2>
         <div className="codeMirror">
           <CodeMirror
             language="xml"
@@ -72,9 +63,7 @@ function GetRequest() {
             srcDoc={srcDoc}
             title="output"
             sandbox="allow-scripts"
-            // frameBorder="0"
             width="100%"
-            // height="100%"
           />
         </div>
         <br></br>
