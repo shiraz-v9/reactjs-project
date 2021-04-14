@@ -3,7 +3,7 @@ import $ from "jquery";
 import axios from "axios";
 
 function Quiz() {
-  const url = "";
+  const url = "https://calm-lake-25316.herokuapp.com";
   const [quiz, setQuiz] = useState("");
   const [attempt, setAttempt] = useState("");
   // useEffect(() => {

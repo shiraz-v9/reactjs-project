@@ -5,7 +5,7 @@ import axios from "axios";
 import moment from "moment";
 
 const CreateAccount = () => {
-  const url = "";
+  const url = "https://calm-lake-25316.herokuapp.com";
   const [postuser, setPostuser] = useState(null);
   const [status, setStatus] = useState("Create a new account");
   const [message, setMessage] = useState("");
@@ -92,7 +92,7 @@ const CreateAccount = () => {
 };
 
 function Login() {
-  const url = "";
+  const url = "https://calm-lake-25316.herokuapp.com";
   const [signed, setSigned] = useState("");
   const [logged, setLogged] = useState(false);
   const [show, setShow] = useState(false);

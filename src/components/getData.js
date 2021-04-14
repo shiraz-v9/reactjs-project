@@ -12,7 +12,7 @@ function ListItem(props) {
 }
 
 function GetData() {
-  const url = "";
+  const url = "https://calm-lake-25316.herokuapp.com";
   const [posts, setPost] = useState([]);
   useEffect(() => {
     axios

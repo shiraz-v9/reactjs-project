@@ -4,7 +4,7 @@ import axios from "axios";
 import moment from "moment";
 
 function Community() {
-  const url = "";
+  const url = "https://calm-lake-25316.herokuapp.com";
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [posts, setPosts] = useState([]);
