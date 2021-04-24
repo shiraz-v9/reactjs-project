@@ -237,7 +237,7 @@ function Login() {
     if (comments.length) {
       return (
         <div>
-          <h2>My posts</h2>
+          <h2>My Comments</h2>
           {comments.map((x, i) =>
             x.postAnswer.map((c) => (
               <span

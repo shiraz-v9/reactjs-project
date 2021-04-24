@@ -3,7 +3,7 @@ import React from "react";
 function Navbar() {
   return (
     <div className="navbar sticky">
-      <ul className="navul">
+      <ul className="navul active">
         <a href="/">
           <h5>
             HTML <strong>Tutor</strong>
@@ -20,7 +20,9 @@ function Navbar() {
           </h5>
         </a>
       </ul>
-
+      <ul className="navul">
+        <a href="/tags">Tags</a>
+      </ul>
       <ul className="navul">
         <a href="/community">Community</a>
       </ul>
