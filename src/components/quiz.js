@@ -6,20 +6,6 @@ function Quiz() {
   const url = "https://calm-lake-25316.herokuapp.com";
   const [quiz, setQuiz] = useState("");
   const [attempt, setAttempt] = useState("");
-  // useEffect(() => {
-  //   if (localStorage.getItem("quiz1Score") == undefined) {
-  //     console.log("no quiz");
-  //     $(".toHide").show("slow");
-  //     $(".message").hide();
-  //     // console.log(JSON.stringify(quiz1));
-  //   } else {
-  //     console.log("set");
-  //     $(".toHide").hide("slow");
-  //     $(".message")
-  //       .show()
-  //       .text("You have already attempted this quiz. Try again?");
-  //   }
-  // }, [attempt]);
 
   useEffect(() => {
     axios
@@ -128,6 +114,9 @@ function Quiz() {
         </button>
         <button
           onClick={() => {
+            setScore(0);
+            $(".toHide").show("slow");
+            setShowScore(false);
             setSelection(0);
             setCurrentQuestion(0);
           }}
@@ -136,11 +125,47 @@ function Quiz() {
         </button>
         <button
           onClick={() => {
+            setScore(0);
+            $(".toHide").show("slow");
+            setShowScore(false);
             setSelection(1);
             setCurrentQuestion(0);
           }}
         >
           Quiz 2
+        </button>
+        <button
+          onClick={() => {
+            setScore(0);
+            $(".toHide").show("slow");
+            setShowScore(false);
+            setSelection(2);
+            setCurrentQuestion(0);
+          }}
+        >
+          Quiz 3
+        </button>
+        <button
+          onClick={() => {
+            setScore(0);
+            $(".toHide").show("slow");
+            setShowScore(false);
+            setSelection(3);
+            setCurrentQuestion(0);
+          }}
+        >
+          Quiz 4
+        </button>
+        <button
+          onClick={() => {
+            setScore(0);
+            $(".toHide").show("slow");
+            setShowScore(false);
+            setSelection(4);
+            setCurrentQuestion(0);
+          }}
+        >
+          Quiz 5
         </button>
       </span>
       <div>{selectQuiz()}</div>

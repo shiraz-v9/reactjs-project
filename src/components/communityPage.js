@@ -205,7 +205,7 @@ function Community() {
 
             <Toast.Body>
               You can only post questions and answers when you're{" "}
-              <a style={{ color: "blue" }} href="http://localhost:3000/account">
+              <a className="active1" href="/account">
                 Logged In
               </a>
             </Toast.Body>

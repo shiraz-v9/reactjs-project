@@ -6,7 +6,8 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+h6 {
   color: var(--whiteFont);
 }
 
@@ -32,8 +33,10 @@ p {
   flex-direction: row;
   height: 55px;
   justify-content: flex-start;
+  flex-wrap: nowrap;
+  align-items: baseline;
 }
-.active {
+.active1 {
   border-radius: 5px;
   text-decoration: underline;
 }
@@ -46,14 +49,19 @@ p {
   color: green !important;
 }
 
+a:link {
+  color: green !important;
+  /* text-decoration: underline; */
+}
+
 a:visited {
   color: rgb(255, 255, 255) !important;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 a:hover {
   color: #378ad3 !important;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 li {
@@ -170,7 +178,7 @@ button:hover {
 }
 
 .CodeMirror {
-  z-index: auto;
+  /* z-index: auto; */
   height: 100% !important;
 }
 
