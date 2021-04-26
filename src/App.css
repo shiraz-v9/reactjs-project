@@ -26,7 +26,7 @@ p {
 }
 
 .navbar {
-  /* position: absolute; */
+  z-index: 5;
   border-radius: 10px;
   background-color: var(--mainColor);
   display: flex;
@@ -51,17 +51,14 @@ p {
 
 a:link {
   color: green !important;
-  /* text-decoration: underline; */
 }
 
 a:visited {
   color: rgb(255, 255, 255) !important;
-  /* text-decoration: underline; */
 }
 
 a:hover {
   color: #378ad3 !important;
-  /* text-decoration: underline; */
 }
 
 li {
@@ -88,11 +85,9 @@ button:hover {
 
 #section {
   position: absolute;
-  z-index: -1;
   top: 50px;
   left: var(--position);
   max-width: 800px;
-  /* margin: auto; */
 }
 
 .list {
@@ -115,10 +110,6 @@ button:hover {
   top: 0;
   background-color: var(--mainColor);
 }
-
-/* .Zindex {
-  z-index: -1;
-} */
 
 .modalContent {
   padding: 30px;
@@ -150,7 +141,6 @@ button:hover {
 }
 
 .questions {
-  z-index: -1;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 10px;
@@ -178,7 +168,6 @@ button:hover {
 }
 
 .CodeMirror {
-  /* z-index: auto; */
   height: 100% !important;
 }
 

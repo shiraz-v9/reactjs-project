@@ -13,16 +13,6 @@ export default function CodeMirror(props) {
   }
   return (
     <div>
-      {/* <div>
-        {displayName}
-        <button
-          type="button"
-          className="expand-collapse-btn"
-          onClick={() => setOpen((prevOpen) => !prevOpen)}
-        >
-          <FontAwesomeIcon icon={open ? faCompressAlt : faExpandAlt} />
-        </button>
-      </div> */}
       <ControlledEditor
         // className="codeMirror"
         // style={{ height: 100px }}
@@ -33,7 +23,7 @@ export default function CodeMirror(props) {
           lint: true,
           mode: language,
           theme: "monokai",
-          lineNumbers: true,
+          lineNumbers: false,
         }}
       />
     </div>

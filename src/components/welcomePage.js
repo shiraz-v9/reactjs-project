@@ -4,19 +4,10 @@ import "codemirror/theme/material.css";
 import "codemirror/mode/xml/xml";
 import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/css/css";
-// import { Controlled as CodeMirror } from "react-codemirror2";
 import CodeMirror from "./codeMirror";
 
-function WelcomePage(props) {
-  const { language, displayName, value, onChange } = props;
-  const [open, setOpen] = useState(true);
-
-  function handleChange(editor, data, value) {
-    onChange(value);
-  }
-
+function WelcomePage() {
   const CodeBox = (props) => {
-    // console.log(props.data);
     const [html, setHtml] = useState(props.data);
     const [css, setCss] = useState();
     const [js, setJs] = useState();
@@ -44,30 +35,7 @@ function WelcomePage(props) {
           value={html}
           onChange={setHtml}
         />
-        {/* <CodeMirror
-            language="css"
-            displayName="CSS"
-            value={css}
-            onChange={setCss}
-          />
-          <CodeMirror
-            language="javascript"
-            displayName="JS"
-            value={js}
-            onChange={setJs}
-          /> */}
       </div>
-      /*{ <div className="iframe">
-          <iframe
-            srcDoc={srcDoc}
-            title="output"
-            sandbox="allow-scripts"
-            frameBorder="0"
-            width="100%"
-            height="100%"
-          />
-        </div> }*/
-      //   </>
     );
   };
 
