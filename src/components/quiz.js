@@ -63,9 +63,12 @@ function Quiz() {
             <p>{quiz[selection].question[currentQuestion].question}</p>
           </div>
           <div className="answers toHide">
-            {quiz[selection].question[currentQuestion].option.map((y) => (
-              <span style={{ display: "flex", flexDirection: "column" }}>
-                <button onClick={() => handleScore(y.isCorrect)}>
+            {quiz[selection].question[currentQuestion].option.map((y, i) => (
+              <span
+                key={i}
+                style={{ display: "flex", flexDirection: "column" }}
+              >
+                <button key={i} onClick={() => handleScore(y.isCorrect)}>
                   {y.answer}
                 </button>
               </span>

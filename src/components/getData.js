@@ -5,12 +5,13 @@ function ListItem(props) {
   return (
     <div>
       <br />
+      {/* eslint-disable-next-line */}
       <a>{props.value}</a>
     </div>
   );
 }
 
-function GetData() {
+const GetData = () => {
   const url = "https://calm-lake-25316.herokuapp.com";
   const [posts, setPost] = useState([]);
   useEffect(() => {
@@ -19,6 +20,7 @@ function GetData() {
       .then((res) => {
         setPost(res.data);
         fixHeight();
+        return res.data;
       })
       .catch((err) => {
         console.log(err);
@@ -26,7 +28,7 @@ function GetData() {
   }, []);
 
   const fixHeight = () => {
-    var h = window.innerHeight - 55 + "px";
+    // var h = window.innerHeight - 55 + "px";
     document.getElementById("sideBar").style.maxHeight =
       window.innerHeight + "px";
     document.getElementById("sideBar").style.overflowY = "scroll";
@@ -41,5 +43,5 @@ function GetData() {
       ))}
     </div>
   );
-}
+};
 export default GetData;

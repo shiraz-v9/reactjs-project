@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal, Tab, Tabs } from "react-bootstrap";
 import $ from "jquery";
 import axios from "axios";
-import moment from "moment";
 
 const CreateAccount = () => {
   const url = "https://calm-lake-25316.herokuapp.com";
   const [postuser, setPostuser] = useState(null);
-  const [status, setStatus] = useState("Create a new account");
   const [message, setMessage] = useState("");
   const [userdata, setUserdata] = useState({
     user: "",
@@ -44,6 +42,14 @@ const CreateAccount = () => {
       !userdata.email.length
     ) {
       setMessage("CANNOT leave empty");
+    } else if (userdata.userPassword.length <= 5) {
+      setMessage("Password must be greater than 5 carachters");
+    } else if (
+      userdata.user.trim() == "" ||
+      userdata.userPassword.trim() == "" ||
+      userdata.email.trim() == ""
+    ) {
+      setMessage("No empty spaces");
     } else {
       setMessage("");
       setPostuser(userdata);
@@ -52,7 +58,7 @@ const CreateAccount = () => {
 
   return (
     <div className="modalContent">
-      <p>{status}</p>
+      <p style={{ color: "black" }}>Create a new Account</p>
       <input
         onBlur={handleUserData}
         placeholder="Name"
@@ -180,7 +186,7 @@ function Login() {
           });
       }
     },
-    [ID]
+    [logged]
   );
 
   //DELETE COMMENTS
@@ -212,7 +218,7 @@ function Login() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [logged]);
 
   //DELETE USER POSTS
   useEffect(
@@ -241,6 +247,7 @@ function Login() {
           {comments.map((x, i) =>
             x.postAnswer.map((c) => (
               <span
+                key={i}
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -249,6 +256,7 @@ function Login() {
               >
                 <p>{c.answer}</p>{" "}
                 <button
+                  key={i}
                   value={i}
                   onClick={() => {
                     setCommentID(c._id);
@@ -272,13 +280,14 @@ function Login() {
           <h2>My Questions</h2>
           {questions.map((x, i) => (
             <span
+              key={x._id}
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "baseline",
               }}
             >
-              <p>{x.postQuestion}</p>{" "}
+              <p key={x._id}>{x.postQuestion}</p>{" "}
               <button
                 value={i}
                 onClick={() => {
@@ -302,6 +311,7 @@ function Login() {
       });
     return (
       <div className="modalContent">
+        <p style={{ color: "black" }}>Sign in</p>
         <form>
           <input
             onBlur={handleSigninData}

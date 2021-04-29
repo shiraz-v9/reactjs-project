@@ -19,7 +19,6 @@ function Community() {
   const [postid, setPostid] = useState({ id: "", message: "", user: "" });
   const [message, setMessage] = useState("");
   const [message2, setMessage2] = useState("");
-  const [value, setValue] = useState("");
   const closeModal = () => setShow(false);
   const showModal = () => setShow(true);
   const closeModal2 = () => setShow2(false);

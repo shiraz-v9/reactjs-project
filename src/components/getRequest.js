@@ -13,8 +13,6 @@ function GetRequest() {
   const url2 = "https://calm-lake-25316.herokuapp.com";
   const [html, setHtml] = useState("");
   const [html2, setHtml2] = useState();
-  const [css, setCss] = useState("");
-  const [js, setJs] = useState("");
   const [srcDoc, setSrcDoc] = useState("");
   const [modaliFrame, setModaliFrame] = useState("");
   //Get text from my links and return data from db
@@ -33,14 +31,13 @@ function GetRequest() {
       setSrcDoc(`
         <html>
           <body>${html}</body>
-          <style>${css}</style>
-          <script>${js}</script>
+
         </html>
       `);
     }, 250);
 
     return () => clearTimeout(timeout);
-  }, [html, css, js]);
+  }, [html]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {

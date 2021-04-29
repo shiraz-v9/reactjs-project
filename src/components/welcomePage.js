@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
 import "codemirror/mode/xml/xml";
@@ -9,23 +9,20 @@ import CodeMirror from "./codeMirror";
 function WelcomePage() {
   const CodeBox = (props) => {
     const [html, setHtml] = useState(props.data);
-    const [css, setCss] = useState();
-    const [js, setJs] = useState();
-    const [srcDoc, setSrcDoc] = useState();
 
-    useEffect(() => {
-      const timeout = setTimeout(() => {
-        setSrcDoc(`
-        <html>
-          <body>${html}</body>
-          <style>${css}</style>
-          <script>${js}</script>
-        </html>
-      `);
-      }, 250);
+    // useEffect(() => {
+    //   const timeout = setTimeout(() => {
+    //     setSrcDoc(`
+    //     <html>
+    //       <body>${html}</body>
+    //       <style>${css}</style>
+    //       <script>${js}</script>
+    //     </html>
+    //   `);
+    //   }, 250);
 
-      return () => clearTimeout(timeout);
-    }, [html, css, js]);
+    //   return () => clearTimeout(timeout);
+    // }, [html, css, js]);
 
     return (
       <div style={{ height: "auto" }}>
@@ -69,6 +66,7 @@ function WelcomePage() {
       <h3>remember 💡</h3>
       <span style={{ display: "flex", flexDirection: "row" }}>
         <img
+          alt="html logo"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png"
           style={{ width: "100px", height: "100px" }}
         />
@@ -88,6 +86,17 @@ function WelcomePage() {
           </li>
         </ul>
       </span>
+      <h3>HTML Crash Course video</h3>
+      <iframe
+        // width="560"
+        height="415"
+        src="https://www.youtube.com/embed/qz0aGYrrlhU"
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+      <hr />
       <h3>HTML tutors essentials!</h3>
       <p>According to Colombia edu thes are the most used HTML tags</p>
       <div className="questions">
