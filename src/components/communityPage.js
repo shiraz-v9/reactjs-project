@@ -19,12 +19,14 @@ function Community() {
   const [postid, setPostid] = useState({ id: "", message: "", user: "" });
   const [message, setMessage] = useState("");
   const [message2, setMessage2] = useState("");
+  const [search, setSearch] = useState("");
   const closeModal = () => setShow(false);
   const showModal = () => setShow(true);
   const closeModal2 = () => setShow2(false);
   const showModal2 = () => setShow2(true);
   const toggleToast = () => setToast(false);
 
+  //get posts
   useEffect(() => {
     axios
       .get(`${url}/getposts`)
@@ -47,14 +49,13 @@ function Community() {
       answerDate: moment().format("LLL"),
     });
   };
-
+  //questions
   useEffect(
     function persistForm() {
       if (question.postQuestion !== "") {
         axios
           .post(`${url}/addpost`, question)
           .then(function (response) {
-            console.log(response.data);
             closeModal();
             window.location.reload();
           })
@@ -73,14 +74,12 @@ function Community() {
     if (user != undefined) {
       showModal();
     } else {
-      console.log("not logged in");
       setToast();
     }
   };
 
   const validation = () => {
     if (!input.length) {
-      console.log("add message");
       setMessage("add message");
     } else {
       setMessage("");
@@ -95,28 +94,23 @@ function Community() {
   };
 
   const replyValidation = () => {
-    console.log(answer);
     if (localStorage.getItem("userName") == undefined) {
       setMessage2("You're not logged in");
     } else if (answer.message == undefined) {
       setMessage2("add reply");
-      console.log("add reply - not logged in");
     } else {
       setPostid(answer);
       setMessage2("");
     }
   };
-
+  //replies
   useEffect(
     function persistForm() {
       if (postid.message == "") {
-        console.log("not posting");
       } else {
-        console.log("USE EFFECT REPKLYPOST");
         axios
           .post(`${url}/replypost`, postid)
           .then(function (response) {
-            console.log(response.data);
             closeModal2();
             window.location.reload();
           })
@@ -127,6 +121,17 @@ function Community() {
     },
     [postid]
   );
+  //search
+  useEffect(() => {
+    axios
+      .post(`http://localhost:5000/findposts`, search)
+      .then(function (res) {
+        setPosts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [search]);
 
   function DropData(props) {
     return (
@@ -192,25 +197,74 @@ function Community() {
           display: "flex",
           flexDirection: "row",
           alignItems: "baseline",
+          justifyContent: "flex-start",
           padding: "5px",
         }}
       >
         <button onClick={checkLoggedUser}>ASK community</button>
-        <span style={{ backgroundColor: "#393939", color: "white" }}>
-          <Toast show={toast} onClose={toggleToast}>
-            <Toast.Header>
-              <strong className="mr-auto">Alert!</strong>
-            </Toast.Header>
-
-            <Toast.Body>
-              You can only post questions and answers when you're{" "}
-              <a className="active1" href="/account">
-                Logged In
-              </a>
-            </Toast.Body>
-          </Toast>
-        </span>
+        <div className="input-group">
+          <input
+            id="searchBox"
+            style={{ width: "50%", marginLeft: "10px" }}
+            type="text"
+            className="form-control"
+            placeholder="Search"
+            aria-label="Search with two button addons"
+          ></input>
+          <button
+            className="btn btn-outline-secondary"
+            onClick={() => {
+              setSearch({ search: "" });
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-x"
+              viewBox="0 0 16 16"
+            >
+              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+            </svg>
+          </button>
+          <button
+            className="btn btn-outline-secondary"
+            onClick={() => {
+              setSearch({ search: document.getElementById("searchBox").value });
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-search"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>
+          </button>
+        </div>
       </span>
+
+      <Toast id="toast" show={toast} onClose={toggleToast}>
+        <Toast.Header>
+          <strong className="mr-auto">
+            <p>Alert!</p>
+          </strong>
+        </Toast.Header>
+
+        <Toast.Body>
+          <p>
+            You can only post questions and answers when you're{" "}
+            <a className="active1" href="/account">
+              Logged In
+            </a>
+          </p>
+        </Toast.Body>
+      </Toast>
+
       {posts.map((x) => (
         <DropData
           key={x._id.toString()}

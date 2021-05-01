@@ -39,18 +39,19 @@ p {
 .active1 {
   border-radius: 5px;
   text-decoration: underline;
+  color: var(--fontColor) !important;
 }
 
 .navul {
   padding: 3px;
 }
 
-.navul:hover {
+/* .navul:hover {
   color: green !important;
-}
+} */
 
 a:link {
-  color: green !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 a:visited {
@@ -173,4 +174,13 @@ button:hover {
 
 .iframe {
   background-color: #ffffff;
+}
+
+#toast {
+  background-color: var(--mainColor);
+  border: 2px solid rgb(255, 85, 85);
+  border-radius: 10px;
+  color: "white";
+  padding: 20px;
+  margin: 10px;
 }

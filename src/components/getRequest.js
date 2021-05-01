@@ -13,8 +13,8 @@ function GetRequest() {
   const url2 = "https://calm-lake-25316.herokuapp.com";
   const [html, setHtml] = useState("");
   const [html2, setHtml2] = useState();
-  const [srcDoc, setSrcDoc] = useState("");
-  const [modaliFrame, setModaliFrame] = useState("");
+  const [doc, setdoc] = useState("");
+  const [modalDoc, setModalDoc] = useState("");
   //Get text from my links and return data from db
   $(document).on("click", "a", function (event) {
     var target = $(event.target).closest("a");
@@ -27,8 +27,9 @@ function GetRequest() {
   });
 
   useEffect(() => {
+    setHtml2(html);
     const timeout = setTimeout(() => {
-      setSrcDoc(`
+      setdoc(`
         <html>
           <body>${html}</body>
 
@@ -41,7 +42,7 @@ function GetRequest() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setModaliFrame(`
+      setModalDoc(`
         <html>
           <body>${html2}</body>
         </html>
@@ -67,7 +68,7 @@ function GetRequest() {
           <br />
           <div className="iframe">
             <iframe
-              srcDoc={modaliFrame}
+              srcDoc={modalDoc}
               title="output"
               sandbox="allow-scripts"
               width="100%"
@@ -116,7 +117,7 @@ function GetRequest() {
 
         <div className="iframe">
           <iframe
-            srcDoc={srcDoc}
+            srcDoc={doc}
             title="output"
             sandbox="allow-scripts"
             width="100%"
