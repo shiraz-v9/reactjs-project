@@ -124,7 +124,7 @@ function Community() {
   //search
   useEffect(() => {
     axios
-      .post(`http://localhost:5000/findposts`, search)
+      .post(`${url}/findposts`, search)
       .then(function (res) {
         setPosts(res.data);
       })
