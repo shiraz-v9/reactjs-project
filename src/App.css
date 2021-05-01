@@ -23,6 +23,7 @@ p {
   --mainColor: #393939;
   --commentColor: #1c1b1b;
   --whiteFont: #ffffff;
+  --footerSpacing: 750px;
 }
 
 .navbar {
@@ -51,11 +52,11 @@ p {
 } */
 
 a:link {
-  color: rgb(255, 255, 255) !important;
+  color: rgb(187, 187, 187) !important;
 }
 
 a:visited {
-  color: rgb(255, 255, 255) !important;
+  color: rgb(187, 187, 187) !important;
 }
 
 a:hover {
@@ -132,6 +133,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   max-width: 900px;
+  min-height: var(--footerSpacing);
 }
 
 .community {
@@ -160,6 +162,7 @@ button:hover {
   margin: auto;
   padding: 20px;
   max-width: 900px;
+  min-height: var(--footerSpacing);
 }
 
 .quizScore {
@@ -183,4 +186,10 @@ button:hover {
   color: "white";
   padding: 20px;
   margin: 10px;
+}
+
+.footer {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--mainColor);
 }

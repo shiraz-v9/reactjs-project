@@ -24,7 +24,6 @@ const CreateAccount = () => {
       axios
         .post(`${url}/login`, postuser)
         .then(function (response) {
-          console.log(response.data);
           setMessage(response.data);
         })
         .catch(function (error) {
@@ -35,7 +34,6 @@ const CreateAccount = () => {
   }, [postuser]);
 
   const newUserValidation = () => {
-    console.log(userdata);
     if (
       !userdata.user.length ||
       !userdata.userPassword.length ||
@@ -150,7 +148,6 @@ function Login() {
         .post(`${url}/enter`, logindata)
         .then(function (response) {
           if (!response.data.length) {
-            console.log("error", response);
             setMessage("invalid credentials");
           } else {
             setMessage("");
@@ -162,7 +159,6 @@ function Login() {
             localStorage.setItem("id", response.data[0]._id);
             setID(response.data[0]._id);
             setLogged(true);
-            console.log(response.status);
           }
         })
         .catch(function (error) {
@@ -196,7 +192,6 @@ function Login() {
         axios
           .delete(`${url}/deletecomment/${commentID}/${postID}`)
           .then((res) => {
-            console.log("deleted ", res.data);
             window.location.reload();
           })
           .catch((err) => {
@@ -213,7 +208,6 @@ function Login() {
       .get(`${url}/getuserposts/${localStorage.getItem("id")}`)
       .then((res) => {
         setQuestions(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -228,7 +222,6 @@ function Login() {
         axios
           .delete(`${url}/deletequestion/${questionID}`)
           .then((res) => {
-            console.log("deleted ", res.data);
             window.location.reload();
           })
           .catch((err) => {
@@ -345,7 +338,6 @@ function Login() {
   };
 
   const validation = () => {
-    console.log(credentials);
     if (!credentials.Email.length || !credentials.Password.length) {
       setMessage("CANNOT leave empty");
     } else {
@@ -373,11 +365,14 @@ function Login() {
   return (
     <div>
       <span
+        className="questions"
         style={{
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
           alignItems: "center",
-          paddingTop: "30px",
+          padding: "30px",
+          marginBottom: "20px",
         }}
       >
         <h5>{signed}</h5>

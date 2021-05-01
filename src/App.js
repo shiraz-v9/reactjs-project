@@ -5,7 +5,7 @@ import Home from "./components/home";
 import LoginPage from "./components/loginPage";
 import Quiz from "./components/quiz";
 import WelcomePage from "./components/welcomePage";
-// import CodeMirror from "./components/codeMirror";
+import Footer from "./components/footer";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
           <Route path="/community" exact component={Community}></Route>
           <Route path="/quiz" exact component={Quiz}></Route>
         </Switch>
+        <Footer></Footer>
       </div>
     </BrowserRouter>
   );

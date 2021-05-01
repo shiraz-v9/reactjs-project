@@ -97,7 +97,7 @@ function WelcomePage() {
         allowFullScreen
       ></iframe>
       <hr />
-      <h3>HTML tutors essentials!</h3>
+      <h3>HTML Tutor's essentials!</h3>
       <p>According to Colombia edu thes are the most used HTML tags</p>
       <div className="questions">
         <p>To create the HTML this is a must.</p>
