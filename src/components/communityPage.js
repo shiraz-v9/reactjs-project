@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal, Toast, Form } from "react-bootstrap";
 import axios from "axios";
 import moment from "moment";
+import ReactPaginate from "react-paginate";
+import $ from "jquery";
 
 function Community() {
   const url = "https://calm-lake-25316.herokuapp.com";
@@ -25,6 +27,9 @@ function Community() {
   const closeModal2 = () => setShow2(false);
   const showModal2 = () => setShow2(true);
   const toggleToast = () => setToast(false);
+  const [postsOnPage, setPostOnPage] = useState(10);
+  const [pageNumber, setPageNumber] = useState(0);
+  // const postsOnPage = 1;
 
   //get posts
   useEffect(() => {
@@ -32,6 +37,7 @@ function Community() {
       .get(`${url}/getposts`)
       .then((res) => {
         setPosts(res.data);
+        // setUsers(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -127,6 +133,7 @@ function Community() {
           .post(`${url}/findposts`, search)
           .then(function (res) {
             setPosts(res.data);
+            setPostOnPage(posts.length);
           })
           .catch((err) => {
             console.log(err);
@@ -135,6 +142,53 @@ function Community() {
     },
     [search]
   );
+
+  const Pagination = () => {
+    const pagesVisited = pageNumber * postsOnPage;
+
+    const data = posts
+      .slice(pagesVisited, pagesVisited + postsOnPage)
+      .map((post) => {
+        return (
+          <DropData
+            key={post._id.toString()}
+            id={post._id}
+            author={post.postAuthor}
+            question={post.postQuestion}
+            answer={post.postAnswer}
+            date={post.postDate}
+          />
+        );
+      });
+
+    const pages = Math.ceil(posts.length / postsOnPage);
+
+    const changePage = ({ selected }) => {
+      setPageNumber(selected);
+    };
+
+    return (
+      <div>
+        <ReactPaginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          pageCount={pages}
+          onPageChange={changePage}
+          containerClassName={"paginationBtn"}
+          previousLinkClassName={"previousBttn"}
+          nextLinkClassName={"nextBttn"}
+          disabledClassName={"paginationDisabled"}
+          activeClassName={"paginationActive"}
+        />
+        {data}
+      </div>
+    );
+  };
+
+  //Posts on page
+  $("#showPost").on("change", function () {
+    setPostOnPage(parseInt($("#showPost").val(), 10));
+  });
 
   function DropData(props) {
     return (
@@ -269,7 +323,7 @@ function Community() {
         </Toast.Body>
       </Toast>
 
-      {posts.map((x) => (
+      {/* {posts.map((x) => (
         <DropData
           key={x._id.toString()}
           id={x._id}
@@ -278,7 +332,20 @@ function Community() {
           answer={x.postAnswer}
           date={x.postDate}
         />
-      ))}
+      ))} */}
+
+      <Pagination />
+
+      <p>show:</p>
+
+      <select id="showPost">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+      </select>
 
       <Modal className="bModal" show={show} onHide={closeModal}>
         <div className="modalContent">

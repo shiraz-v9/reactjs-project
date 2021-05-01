@@ -193,3 +193,38 @@ button:hover {
   border-radius: 10px;
   background-color: var(--mainColor);
 }
+
+.paginationBtn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  /* margin: 10px; */
+  height: 40px;
+  list-style: none;
+  width: 80%;
+}
+
+.paginationBtn a {
+  padding: 5px;
+  margin: 8px;
+  border-radius: 10px;
+  border: 1px solid var(--buttonColor);
+  color: var(--whiteFont);
+  cursor: pointer;
+}
+
+.paginationBtn a:hover {
+  color: var(--whiteFont) !important;
+  background-color: var(--buttonColor);
+}
+
+.paginationActive a {
+  color: var(--whiteFont);
+  background-color: var(--buttonColor);
+}
+
+.paginationDisabled a {
+  color: var(--whiteFont);
+  background-color: grey;
+  text-decoration: line-through;
+}
