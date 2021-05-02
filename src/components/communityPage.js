@@ -4,6 +4,7 @@ import axios from "axios";
 import moment from "moment";
 import ReactPaginate from "react-paginate";
 import $ from "jquery";
+import CodeMirror from "./codeMirror";
 
 function Community() {
   const url = "https://calm-lake-25316.herokuapp.com";
@@ -18,7 +19,13 @@ function Community() {
   const [answer, setAnswer] = useState({ message: "" });
   const [input, setInput] = useState("");
   const [toast, setToast] = useState(false);
-  const [postid, setPostid] = useState({ id: "", message: "", user: "" });
+  const [code, setCode] = useState("");
+  const [postid, setPostid] = useState({
+    id: "",
+    message: "",
+    user: "",
+    code: "",
+  });
   const [message, setMessage] = useState("");
   const [message2, setMessage2] = useState("");
   const [search, setSearch] = useState("");
@@ -27,9 +34,26 @@ function Community() {
   const closeModal2 = () => setShow2(false);
   const showModal2 = () => setShow2(true);
   const toggleToast = () => setToast(false);
-  const [postsOnPage, setPostOnPage] = useState(10);
+  const [postsOnPage, setPostOnPage] = useState(2);
   const [pageNumber, setPageNumber] = useState(0);
-  // const postsOnPage = 1;
+
+  const CodeBox = (props) => {
+    const [code2, setcode2] = useState(props.data);
+    if (props.data) {
+      return (
+        <div>
+          <CodeMirror
+            language="xml"
+            displayName="HTML"
+            value={code2}
+            onChange={setcode2}
+          />
+        </div>
+      );
+    } else {
+      return null;
+    }
+  };
 
   //get posts
   useEffect(() => {
@@ -108,10 +132,15 @@ function Community() {
     }
   };
   //replies
+  useEffect(() => {
+    setAnswer({ ...answer, code: code });
+  }, [code]);
+
   useEffect(
     function persistForm() {
       if (postid.message == "") {
       } else {
+        console.log(postid);
         axios
           .post(`${url}/replypost`, postid)
           .then(function (response) {
@@ -133,7 +162,7 @@ function Community() {
           .post(`${url}/findposts`, search)
           .then(function (res) {
             setPosts(res.data);
-            setPostOnPage(posts.length);
+            setPostOnPage(res.data.length);
           })
           .catch((err) => {
             console.log(err);
@@ -156,6 +185,7 @@ function Community() {
             author={post.postAuthor}
             question={post.postQuestion}
             answer={post.postAnswer}
+            code={post.code}
             date={post.postDate}
           />
         );
@@ -170,7 +200,7 @@ function Community() {
     return (
       <div>
         <ReactPaginate
-          previousLabel={"Previous"}
+          previousLabel={"Back"}
           nextLabel={"Next"}
           pageCount={pages}
           onPageChange={changePage}
@@ -187,7 +217,7 @@ function Community() {
 
   //Posts on page
   $("#showPost").on("change", function () {
-    setPostOnPage(parseInt($("#showPost").val(), 10));
+    setTimeout(() => setPostOnPage($("#showPost").val(), 10), 50);
   });
 
   function DropData(props) {
@@ -218,6 +248,7 @@ function Community() {
               <p>{d.answerDate}</p>
             </span>
             <p>{d.answer}</p>
+            <CodeBox data={d.code} />
           </div>
         ))}
 
@@ -271,8 +302,10 @@ function Community() {
           <button
             className="btn btn-outline-secondary"
             onClick={() => {
-              setSearch({ search: "" });
-              document.getElementById("searchBox").value = "";
+              // setSearch({ search: "" });
+              // setPostOnPage(2);
+              window.location.reload();
+              // document.getElementById("searchBox").value = "";
             }}
           >
             <svg
@@ -323,24 +356,15 @@ function Community() {
         </Toast.Body>
       </Toast>
 
-      {/* {posts.map((x) => (
-        <DropData
-          key={x._id.toString()}
-          id={x._id}
-          author={x.postAuthor}
-          question={x.postQuestion}
-          answer={x.postAnswer}
-          date={x.postDate}
-        />
-      ))} */}
-
       <Pagination />
 
       <p>show:</p>
 
       <select id="showPost">
         <option value="1">1</option>
-        <option value="2">2</option>
+        <option value="2" selected>
+          2
+        </option>
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="20">20</option>
@@ -389,6 +413,14 @@ function Community() {
             onChange={handleReply}
             placeholder="Reply"
           />
+          <label>Add code⤵</label>
+          <CodeMirror
+            language="xml"
+            displayName="HTML"
+            value={code}
+            onChange={setCode}
+          />
+          <br></br>
           <span
             style={{
               display: "flex",

@@ -11,7 +11,7 @@ function home() {
 
       <div id="section">
         <div>
-          <GetRequest></GetRequest>
+          <GetRequest />
         </div>
       </div>
     </div>

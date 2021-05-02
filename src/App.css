@@ -198,10 +198,11 @@ button:hover {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  /* margin: 10px; */
+  margin: 10px;
   height: 40px;
   list-style: none;
-  width: 80%;
+  /* width: 80%; */
+  padding-right: 40px;
 }
 
 .paginationBtn a {

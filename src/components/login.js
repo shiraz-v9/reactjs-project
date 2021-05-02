@@ -237,30 +237,28 @@ function Login() {
       return (
         <div>
           <h2>My Comments</h2>
-          {comments.map((x, i) =>
-            x.postAnswer.map((c) => (
-              <span
+          {comments.map((x, i) => (
+            <span
+              key={i}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "baseline",
+              }}
+            >
+              <p>{x.answer}</p>{" "}
+              <button
                 key={i}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "baseline",
+                value={i}
+                onClick={() => {
+                  setCommentID(x.commentID);
+                  setPostID(x.postID);
                 }}
               >
-                <p>{c.answer}</p>{" "}
-                <button
-                  key={i}
-                  value={i}
-                  onClick={() => {
-                    setCommentID(c._id);
-                    setPostID(x._id);
-                  }}
-                >
-                  delete
-                </button>
-              </span>
-            ))
-          )}
+                delete
+              </button>
+            </span>
+          ))}
         </div>
       );
     }
