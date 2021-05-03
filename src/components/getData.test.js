@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import renderer from "react-test-renderer";
 const axios = require("axios");
 import MockAdapter from "axios-mock-adapter";
+import render from "@testing-library/react";
 
 it("Receive Tags from DB", () => {
   axios.get("https://calm-lake-25316.herokuapp.com/home").then((response) => {
@@ -53,4 +54,33 @@ it("Load Quizzes", async () => {
   }
 });
 
-it("loading Images", () => {});
+it("Renders youtube videos", async () => {
+  try {
+    var div = document.createElement("div");
+
+    await ReactDOM.render(
+      <iframe
+        height="415"
+        src="https://www.youtube.com/embed/bWPMSSsVdPk"
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>,
+      div
+    );
+    await ReactDOM.render(
+      <iframe
+        height="415"
+        src="https://www.youtube.com/embed/qz0aGYrrlhU"
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>,
+      div
+    );
+  } catch (error) {
+    console.log(error);
+  }
+});

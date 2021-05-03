@@ -58,6 +58,7 @@ const CreateAccount = () => {
     <div className="modalContent">
       <p style={{ color: "black" }}>Create a new Account</p>
       <input
+        autocomplete="off"
         onBlur={handleUserData}
         placeholder="Name"
         className="form-control"
@@ -66,6 +67,7 @@ const CreateAccount = () => {
       />
       <br></br>
       <input
+        autocomplete="off"
         type="password"
         onBlur={handleUserData}
         placeholder="Password"
@@ -74,6 +76,7 @@ const CreateAccount = () => {
       />
       <br></br>
       <input
+        autocomplete="off"
         onBlur={handleUserData}
         placeholder="Email"
         className="form-control"
@@ -103,7 +106,7 @@ function Login() {
   const [modal, setModal] = useState();
   const [key, setKey] = useState("sign in");
   const [message, setMessage] = useState("");
-  const [ID, setID] = useState();
+  // const [ID, setID] = useState();
   const [commentID, setCommentID] = useState();
   const [postID, setPostID] = useState();
   const [questionID, setQuestionID] = useState();
@@ -133,7 +136,7 @@ function Login() {
         $("#MButton").show();
       } else {
         setSigned("Welcome back " + localStorage.getItem("userName"));
-        setID(localStorage.getItem("id"));
+        // setID(localStorage.getItem("id"));
         setModal("");
         $("#MButton").hide();
         closeModal();
@@ -157,7 +160,7 @@ function Login() {
             );
             localStorage.setItem("userName", response.data[0].userName);
             localStorage.setItem("id", response.data[0]._id);
-            setID(response.data[0]._id);
+            // setID(response.data[0]._id);
             setLogged(true);
           }
         })
@@ -305,6 +308,7 @@ function Login() {
         <p style={{ color: "black" }}>Sign in</p>
         <form>
           <input
+            autocomplete="off"
             onBlur={handleSigninData}
             className="form-control"
             placeholder="Email"
@@ -313,6 +317,7 @@ function Login() {
           />
           <br></br>
           <input
+            autocomplete="off"
             onBlur={handleSigninData}
             className="form-control"
             placeholder="Password"
