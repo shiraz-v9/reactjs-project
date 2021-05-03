@@ -235,7 +235,7 @@ function Login() {
   const myComments = () => {
     if (comments.length) {
       return (
-        <div>
+        <div className="comments">
           <h2>My Comments</h2>
           {comments.map((x, i) => (
             <span
@@ -267,7 +267,7 @@ function Login() {
   const myQuestions = () => {
     if (questions.length) {
       return (
-        <div>
+        <div className="comments">
           <h2>My Questions</h2>
           {questions.map((x, i) => (
             <span

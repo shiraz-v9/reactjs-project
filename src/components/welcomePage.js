@@ -86,9 +86,18 @@ function WelcomePage() {
           </li>
         </ul>
       </span>
+      <h3>HTML basics (no tools)</h3>
+      <iframe
+        height="415"
+        src="https://www.youtube.com/embed/bWPMSSsVdPk"
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+      <hr />
       <h3>HTML Crash Course video</h3>
       <iframe
-        // width="560"
         height="415"
         src="https://www.youtube.com/embed/qz0aGYrrlhU"
         title="YouTube video player"
@@ -97,18 +106,27 @@ function WelcomePage() {
         allowFullScreen
       ></iframe>
       <hr />
+
       <h3>HTML Tutor's essentials!</h3>
-      <p>According to Colombia edu thes are the most used HTML tags</p>
+      <p>
+        HTML comes with over 100 elements, but do not worry you can get started
+        right now with just under 20 tags. <br />
+        The following are <strong>HTML Tutor's</strong> must!
+      </p>
       <div className="questions">
-        <p>To create the HTML this is a must.</p>
-        <CodeBox data="<HTML>. . . </HTML>" />
+        <p>To create the HTML 5 page this is a must.</p>
+        <CodeBox data="<!DOCTYPE html>" />
       </div>
       <div className="questions">
-        <p>The head, or prologue, of the HTML document</p>
+        <p>
+          The head, or prologue, of the HTML document. <br />
+          Links to yous CSS and Javascript should be included here so they can
+          be loaded faster.
+        </p>
         <CodeBox data="<head> . . . </head>" />
       </div>
       <div className="questions">
-        <p>All the other content in the HTML document</p>
+        <p>All the other content in the HTML document.</p>
         <CodeBox data="<body> . . . </body>" />
       </div>
 
@@ -117,8 +135,8 @@ function WelcomePage() {
         <CodeBox data="<title> . . . </title>" />
       </div>
       <div className="questions">
-        <p>Headings</p>
-        <CodeBox data="<h1> . . . </h1>" />
+        <p>Headings have 6 different sizes, from h1 the largest to h6.</p>
+        <CodeBox data="<h1>Main Heading</h1>" />
       </div>
       <div className="questions">
         <p>
@@ -141,11 +159,11 @@ function WelcomePage() {
           Comment The comments you write in the middle will not show up on the
           page when viewed.
         </p>
-        <CodeBox data="<!- . . . ->" />
+        <CodeBox data="<!-- comments -->" />
       </div>
       <div className="questions">
         <p>Link (A=Anchor) links the current HTML file to another file.</p>
-        <CodeBox data="<a href=''> . . . </a>" />
+        <CodeBox data="<a href='https://boiling-reaches-75303.herokuapp.com/'>my link</a>" />
       </div>
       <div className="questions">
         <p>
@@ -155,24 +173,32 @@ function WelcomePage() {
         </p>
         <CodeBox
           data="<table>
-        <TR>
-        <TD>
-        </TD>
-        </TR>
-        </table>"
+  <tr>
+    <th>Month</th>
+    <th>Savings</th>
+  </tr>
+  <tr>
+    <td>January</td>
+    <td>$100</td>
+  </tr>
+  <tr>
+    <td>February</td>
+    <td>$80</td>
+  </tr>
+</table>"
         />
       </div>
       <div className="questions">
         <p>Italic Makes text italic</p>
-        <CodeBox data="<i> . . . </i>" />
+        <CodeBox data="<i>Italic text</i>" />
       </div>
       <div className="questions">
         <p>Bold Makes text bold</p>
-        <CodeBox data="<b> . . . </b>" />
+        <CodeBox data="<b>Bold text</b>" />
       </div>
       <div className="questions">
         <p>Image Put the name of the graphic (.gif or .jpg) in the quotes.</p>
-        <CodeBox data="<img src='image.gif'>" />
+        <CodeBox data="<img src='https://www.ikea.com/gb/en/images/products/smycka-artificial-flower-rose-red__0903311_pe596728_s5.jpg' alt='rose' width='300' height='300'>" />
       </div>
       <span style={{ textAlign: "center" }}>
         <p>

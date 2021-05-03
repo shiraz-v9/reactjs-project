@@ -34,12 +34,12 @@ function Community() {
   const closeModal2 = () => setShow2(false);
   const showModal2 = () => setShow2(true);
   const toggleToast = () => setToast(false);
-  const [postsOnPage, setPostOnPage] = useState(2);
+  const [postsOnPage, setPostOnPage] = useState(5);
   const [pageNumber, setPageNumber] = useState(0);
 
-  const CodeBox = (props) => {
-    const [code2, setcode2] = useState(props.data);
-    if (props.data) {
+  const CodeBox = ({ data }) => {
+    const [code2, setcode2] = useState(data);
+    if (data) {
       return (
         <div>
           <CodeMirror
@@ -61,12 +61,28 @@ function Community() {
       .get(`${url}/getposts`)
       .then((res) => {
         setPosts(res.data);
-        // setUsers(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  //search
+  useEffect(
+    function persistForm() {
+      if (search != []) {
+        axios
+          .post(`${url}/findposts`, search)
+          .then(function (res) {
+            setPosts(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    [search]
+  );
 
   const handleTextArea = (e) => setInput(e.currentTarget.value);
 
@@ -79,6 +95,7 @@ function Community() {
       answerDate: moment().format("LLL"),
     });
   };
+
   //questions
   useEffect(
     function persistForm() {
@@ -109,6 +126,10 @@ function Community() {
   const validation = () => {
     if (!input.length) {
       setMessage("add message");
+    } else if (input.trim() == "") {
+      setMessage("No empty spaces");
+    } else if (input.length <= 10) {
+      setMessage("Questions must be greater than 10 carachters");
     } else {
       setMessage("");
       setQuestion({
@@ -126,6 +147,10 @@ function Community() {
       setMessage2("You're not logged in");
     } else if (answer.message == undefined) {
       setMessage2("add reply");
+    } else if (answer.message.trim() == "") {
+      setMessage2("No empty spaces");
+    } else if (answer.message.length <= 10) {
+      setMessage2("Replies must be greater than 10 carachters");
     } else {
       setPostid(answer);
       setMessage2("");
@@ -153,23 +178,6 @@ function Community() {
       }
     },
     [postid]
-  );
-  //search
-  useEffect(
-    function persistForm() {
-      if (search != "") {
-        axios
-          .post(`${url}/findposts`, search)
-          .then(function (res) {
-            setPosts(res.data);
-            setPostOnPage(res.data.length);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    },
-    [search]
   );
 
   const Pagination = () => {
@@ -199,8 +207,9 @@ function Community() {
 
     return (
       <div>
+        {data}
         <ReactPaginate
-          previousLabel={"Back"}
+          previousLabel={"Previous"}
           nextLabel={"Next"}
           pageCount={pages}
           onPageChange={changePage}
@@ -210,7 +219,6 @@ function Community() {
           disabledClassName={"paginationDisabled"}
           activeClassName={"paginationActive"}
         />
-        {data}
       </div>
     );
   };
@@ -220,7 +228,7 @@ function Community() {
     setTimeout(() => setPostOnPage($("#showPost").val(), 10), 50);
   });
 
-  function DropData(props) {
+  function DropData({ author, date, question, answer, id }) {
     return (
       <div className="questions">
         <span
@@ -230,12 +238,12 @@ function Community() {
             justifyContent: "space-between",
           }}
         >
-          <p>asked by {props.author}</p>
-          <p>{props.date}</p>
+          <p>asked by {author}</p>
+          <p>{date}</p>
         </span>
-        <p style={{ fontWeight: "bold" }}>{props.question}</p>
+        <p style={{ fontWeight: "bold" }}>{question}</p>
         <p>answers:</p>
-        {props.answer.map((d, i) => (
+        {answer.map((d, i) => (
           <div className="comments" key={i}>
             <span
               style={{
@@ -261,7 +269,7 @@ function Community() {
         >
           <button
             onClick={() => {
-              setAnswer({ id: props.id });
+              setAnswer({ id: id });
               showModal2();
             }}
           >
@@ -360,11 +368,9 @@ function Community() {
 
       <p>show:</p>
 
-      <select id="showPost">
+      <select id="showPost" defaultValue={"5"}>
         <option value="1">1</option>
-        <option value="2" selected>
-          2
-        </option>
+        <option value="2">2</option>
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="20">20</option>
