@@ -1,3 +1,11 @@
+### This is the front end of the 'Developing an interactive tool for teaching HTML'
+## how to run 
+this website is built with React JS a popular Javascript libarary.
+`git clone` the project from the code button (top-right)
+go to the project directory
+Assuming you have node and npm you can install dependencies with `npm install`
+Run on your computer with `npm start`
+
 ## Home Page
 
 <img src="https://i.imgur.com/ik9pKJz.png" alt="drawing" width="300" height="600"/>
