@@ -1,10 +1,17 @@
 ### This is the front end of the 'Developing an interactive tool for teaching HTML'
-## how to run 
+## how to run locally
 this website is built with React JS a popular Javascript libarary.
 `git clone` the project from the code button (top-right)
 go to the project directory
 Assuming you have node and npm you can install dependencies with `npm install`
 Run on your computer with `npm start`
+
+## Run on deployed Heroku website
+[Website link](https://boiling-reaches-75303.herokuapp.com/ "Website link")
+
+### NOTE 
+You might get an Application error first time you load the website on Heroku, this is normal behaviour because it is a free service.. refresh the page and it should be fine.
+It can take upto a minute on first load and sleeps after 30 mins of inactivity.
 
 ## Home Page
 
